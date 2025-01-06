@@ -14,6 +14,8 @@ from langchain.document_loaders import PyPDFLoader
 logging.basicConfig(level=logging.INFO)
 
 # Constants
+MODEL_NAME = "llama3.2"
+EMBEDDING_MODEL = "nomic-embed-text"
 VECTOR_STORE_NAME = "simple-prompt-rag"
 PERSIST_DIRECTORY = "./chroma_prompt_db"
 PDF_PATH = "Cancer_Knowledge.pdf"  # Path to the PDF file
