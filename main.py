@@ -9,7 +9,10 @@ from langchain.chains import RetrievalQA
 from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts.chat import ChatPromptTemplate
 import ollama
-from langchain.document_loaders import PyPDFLoader
+import time
+from langchain_community.document_loaders import PyPDFLoader
+from langchain.text_splitter import CharacterTextSplitter
+
 
 logging.basicConfig(level=logging.INFO)
 
@@ -18,7 +21,7 @@ MODEL_NAME = "llama3.2"
 EMBEDDING_MODEL = "nomic-embed-text"
 VECTOR_STORE_NAME = "simple-prompt-rag"
 PERSIST_DIRECTORY = "./chroma_prompt_db"
-PDF_PATH = "Cancer_Knowledge.pdf"  # Path to the PDF file
+PDF_PATH = "meidtations.pdf"
 
 # Streamlit Page-
 st.set_page_config(page_title="Medical Chatbot", page_icon="💊", layout="centered")
@@ -40,13 +43,8 @@ def load_vector_db():
     """Load or create the vector database."""
     ollama.pull(EMBEDDING_MODEL)
     embedding = OllamaEmbeddings(model=EMBEDDING_MODEL)
-
     if os.path.exists(PERSIST_DIRECTORY):
-        vector_db = Chroma(
-            embedding_function=embedding,
-            collection_name=VECTOR_STORE_NAME,
-            persist_directory=PERSIST_DIRECTORY,
-        )
+        vector_db = Chroma(persist_directory=PERSIST_DIRECTORY, embedding_function=embedding)
         logging.info("Loaded existing vector database.")
     else:
         vector_db = Chroma(
@@ -55,16 +53,20 @@ def load_vector_db():
             persist_directory=PERSIST_DIRECTORY,
         )
         logging.info("New vector database created and persisted.")
-        print("New vector database created and persisted.")
 
-        # Extract text from PDF and add to the vector database using PyPDFLoader
         loader = PyPDFLoader(PDF_PATH)
         documents = loader.load()
 
-        # Add extracted documents to the vector database
-        vector_db.add_documents(documents)
+        text_splitter = CharacterTextSplitter(chunk_size=500, chunk_overlap=100)  # Smaller chunk size
+        split_documents = text_splitter.split_documents(documents)
+
+        for doc in split_documents:
+            print(doc.page_content)
+        
+        vector_db.add_documents(split_documents)
 
         vector_db.persist()
+
         logging.info("Cancer knowledge added to vector database.")
 
     return vector_db
@@ -72,7 +74,7 @@ def load_vector_db():
 
 def create_chain(vector_db, llm):
     """Create a RetrievalQA chain."""
-    retriever = vector_db.as_retriever()
+    retriever = vector_db.as_retriever(search_kwargs={"k": 5})
 
     # Define a prompt template
     template = """Answer the following question using the provided context:
@@ -107,11 +109,17 @@ def main():
                     return
 
                 chain = create_chain(vector_db, llm)
+                
+                start_time = time.time()
 
                 response = chain.invoke({"query": user_prompt})
 
+                end_time = time.time()
+
+                response_time = end_time - start_time
+
                 st.markdown('<div class="response-box">', unsafe_allow_html=True)
-                st.markdown(f"**Response:** {response['result']}")
+                st.markdown(f"**Response:** {response['result']} response time:** {response_time}")
                 st.markdown('</div>', unsafe_allow_html=True)
             except Exception as e:
                 st.error(f"An error occurred: {str(e)}")
