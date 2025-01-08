@@ -1,0 +1,23 @@
+MyChart: A patient portal for accessing health records, scheduling appointments, and communicat1.ion with providers.
+
+HI-SAB: Doctor's entry diagonasis , patient information , lab research , and scheduling information with MyChart
+
+ASAP: Focused on emergency department management, offering tools for triage and patient flow.
+
+Radiant: Manages radiology workflows, including imaging and reporting.
+
+
+
+/ **
+Beacon: Tailored for oncology care, including treatment plans and chemotherapy administration.
+Stork: Designed for obstetric care, managing pregnancy and delivery documentation.
+OpTime: Supports surgical scheduling, pre-op, intra-op, and post-op processes.
+Wisdom: Supports dental care workflows, including treatment planning and scheduling.
+Cadence: Handles scheduling, registration, and patient check-ins.
+Willow: Pharmacy management module for both inpatient and outpatient settings.
+EpicCare Ambulatory: Manages outpatient clinic visits, documentation, and order entries.
+Healthy Planet: Focuses on population health management and analytics.
+Beaker: Laboratory information management system for specimen tracking and testing.
+Phoenix: Manages transplant patient care, from evaluation to post-operative follow-up.
+Haiku and Canto: Mobile applications for providers to access patient records and manage care on-the-go
+** /
