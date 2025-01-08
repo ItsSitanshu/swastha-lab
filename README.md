@@ -1,4 +1,4 @@
-<div style="position: relative; text-align: center; color: white; margin-bottom: 20px;">
+<div style="width: 100%; position: relative; text-align: center; color: white; margin-bottom: 20px;  max-height: 150px;">
   <img src="__github__/banner.jpg" alt="SIPaKMeD Dataset" style="width: 100%; max-height: 150px; object-fit: cover;">
   <h1 style="width:100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 36px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
     Segmentation model with Unet <br/>  SIPaKMeD
