@@ -3,10 +3,12 @@ from tqdm import tqdm
 import cv2
 
 import numpy as np
-import tensorflow as tf
 
 from tensorflow.keras import layers, models
 from tensorflow.keras.preprocessing.image import img_to_array
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.utils import to_categorical
+
 from sklearn.model_selection import train_test_split
 
 
@@ -82,7 +84,7 @@ def build_unet(input_shape=(256, 256, 3)):
 
 images, masks = [], []
 
-image_mask_dir = 'supim'
+image_mask_dir = 'data/train'
 total_images = len([f for f in os.listdir(image_mask_dir) if f.endswith('.bmp')])
 
 
@@ -93,13 +95,13 @@ for batch_images, batch_masks in tqdm(load_data(image_mask_dir, batch_size=16), 
 images = np.concatenate(images, axis=0) / 255.0
 masks = np.concatenate(masks, axis=0)
 
-masks = tf.keras.utils.to_categorical(masks, num_classes=3)  
+masks = to_categorical(masks, num_classes=3)  
 
 X_train, X_val, y_train, y_val = train_test_split(images, masks, test_size=0.2, random_state=42)
 
 model = build_unet()
-model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+model.compile(optimizer=Adam(), loss='categorical_crossentropy', metrics=['accuracy'])
 
-history = model.fit(X_train, y_train, validation_data=(X_val, y_val), batch_size=32, epochs=10)
+history = model.fit(X_train, y_train, validation_data=(X_val, y_val), batch_size=32, epochs=20)
 
 model.save('cell_segmentation_model.h5')
