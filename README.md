@@ -7,11 +7,15 @@ This project utilizes the **SIPaKMeD dataset** for the classification of normal 
 Download the SIPaKMeD dataset from [official repository](https://www.cse.uoi.gr/~marina/sipakmed.html) and transfer into a folder's /pool (data folder)
 
 ```sh
-# it is recommended to set up a (anaconda) venv 
-pip install -r requirements.txt
+# RECOMMENDED! https://docs.python.org/3/library/venv.html
+# See make create-venv/activate-venv/install-packages/deactivate-venv for more information
+```
+```sh
+python3 src/setup.py src/processing.py # = make setup
 
-python3 processing.py
-python3 main.py
+python3 src/main.py # = make train
+
+python3 src/test.py # = make test
 ```
 
 ---
