@@ -24,9 +24,8 @@ const InitialCard: React.FC<InitialCardInterface> = ({ isChild, childFunction })
   const hoverItems = ["Calendar", "Documents", "Medications"];
 
   return (
-    <div className="w-[90vw] max-w-[1200px] h-[300px] bg-[#282c34] text-white flex p-6 rounded-lg shadow-lg relative">
+    <div className="w-[90vw] max-w-[1200px] h-[300px] text-white flex p-6 rounded-lg shadow-lg relative">
       
-      {/* Patient Image */}
       <div className="relative w-[150px] h-[150px] bg-gray-500 rounded-full flex items-center justify-center overflow-hidden">
         <Image src={pfp} alt="Patient" width={140} height={140} className="rounded-full object-cover" />
       </div>
@@ -70,8 +69,8 @@ const InitialCard: React.FC<InitialCardInterface> = ({ isChild, childFunction })
       </div>
 
       <div className="ml-auto flex flex-col items-center">
-        <div className="w-32 h-32 bg-gray-500 rounded-lg flex items-center justify-center overflow-hidden">
-          <Image src={qrcode} alt="QR Code" width={100} height={100} className="object-contain" />
+        <div className="w-full h-full rounded-lg flex items-center justify-center overflow-hidden">
+          <Image src={qrcode} alt="QR Code" width={1000} height={1000} className="object-contain h-full w-full" />
         </div>
       </div>
     </div>
