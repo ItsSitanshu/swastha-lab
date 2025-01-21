@@ -9,11 +9,18 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'Arial', 'sans-serif'],
+        jksans: ["Plus Jakarta Sans", "sans-serif"],
+        nue: ["Bebas Neue", 'serif'],
+        lux: ["Luxurious Roman", 'serif'],
+        plantin: ["Plantin Infant", "serif"]
       },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        light: 'var(--light)',
+        mod: 'var(--mod)',
+        dark: 'var(--dark)',
+        brown: 'var(--brown)',
       },
     },
   },

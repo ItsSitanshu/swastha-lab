@@ -1,35 +1,63 @@
 import Image from "next/image";
 import { FC } from "react";
 
+import googleLogo from "@/app/assets/images/logos/google.svg";
+import githubLogo from "@/app/assets/images/logos/github.svg";
 
-const AuthButton : FC = () => {
+const AuthButton: FC = () => {
     function RegisterGoogle() {
-
+        // Google Registration Logic
     }
 
     function RegisterGithub() {
-
+        // GitHub Registration Logic
     }
 
     return (
         <>
-        <div className="flex flex-row justify-evenly w-10/12 h-16 mt-5 mb-7">
-            <div className="hover:cursor-pointer hover:bg-white hover:text-black hover:scale-[1.05] transition duration-300 ease-in-out  
-            flex flex-row justify-center items-center w-2/5 h-full border-[0.5px] border-white/20 bg-transparent rounded-lg">
-                <Image aria-hidden src="/google-icon.svg" alt="File icon" width={26} height={26} className="mr-1.5"/>
-                <h1 className="font-work text-[1rem]">Google</h1>
+            <div className="flex flex-row justify-evenly w-10/12 h-16 mt-5 mb-4">
+                <div
+                    onClick={RegisterGoogle}
+                    className="hover:cursor-pointer hover:bg-foreground hover:text-background hover:scale-[1.02] transition duration-300 ease-in-out  
+                    flex flex-row justify-center items-center w-2/5 h-full border-[0.5px] border-foreground/20 bg-background rounded-lg"
+                >
+                    <Image
+                        aria-hidden
+                        src={googleLogo}
+                        alt="Google Icon"
+                        width={26}
+                        height={26}
+                        className="mr-1.5"
+                    />
+                    <h1 className="font-jksans text-[1rem]">Google</h1>
+                </div>
+
+                <div
+                    onClick={RegisterGithub}
+                    className="hover:cursor-pointer hover:bg-foreground hover:text-background hover:scale-[1.02] transition duration-300 ease-in-out  
+                    flex flex-row justify-center items-center w-2/5 h-full border-[0.5px] border-foreground/20 bg-background rounded-lg"
+                >
+                    <Image
+                        aria-hidden
+                        src={githubLogo}
+                        alt="GitHub Icon"
+                        width={28}
+                        height={28}
+                        className="mr-1.5"
+                    />
+                    <h1 className="font-jksans text-[1rem]">GitHub</h1>
+                </div>
             </div>
-            <div className="hover:cursor-pointer hover:bg-white hover:text-black hover:scale-105 transition duration-300 ease-in-out
-             flex flex-row justify-center items-center w-2/5 h-full border-[0.5px] border-white/20 bg-transparent rounded-lg">
-                <Image aria-hidden src="/github-tile.svg" alt="File icon" width={28} height={28} className="mr-1.5"/>
-                <h1 className="font-work text-[1rem]">Github</h1>
-            </div>
-        </div>
-        {/* <div className="flex flex-row w-10/12 h-4 mt-4 mb-4 items-center justify-center">
-            <span className="text-xs font-cutive">OR</span>
-        </div> */}
+
+            {/* Divider */}
+            <div className="w-full h-[2px] opacity-65 bg-foreground mb-4"></div>
+
+            {/* Uncomment if needed */}
+            {/* <div className="flex flex-row w-10/12 h-4 mt-4 mb-4 items-center justify-center">
+                <span className="text-xs font-nue text-foreground/60">OR</span>
+            </div> */}
         </>
-    )
+    );
 };
 
 export default AuthButton;
