@@ -17,68 +17,59 @@ import syringeIcon from "@/app/assets/images/icons/syringe.svg"
 import demoQrIcon from "@/app/assets/images/demo.svg"
 
 
-
 const SloganRotator = () => {
     const slogans = [
         "Healthcare without compromise",
         "Your health, our priority",
-        "Compassionate care for everyone"
+        "Compassionate care for everyone",
     ];
 
     const [typedSlogan, setTypedSlogan] = useState<string>("");
     const [sloganIndex, setSloganIndex] = useState<number>(0);
-    const typingSpeed = 100; // Slow typing speed
-    const deletingSpeed = 100; // Speed for deleting effect
-    const changingSpeed = 5000; // Time to change slogan after typing and deleting
-    const pauseBeforeTyping = 1500; // Pause before typing starts
+    const [isDeleting, setIsDeleting] = useState<boolean>(false);
+    const typingSpeed = 100; // Typing speed
+    const deletingSpeed = 50; // Deleting speed
+    const changingSpeed = 1500; // Pause before deleting or switching slogans
 
     useEffect(() => {
-        let typingInterval: NodeJS.Timeout;
-        let deletingInterval: NodeJS.Timeout;
+        let interval: any = 0;
 
-        const deleteSlogan = () => {
-            deletingInterval = setInterval(() => {
-                setTypedSlogan((prev) => prev.slice(0, prev.length - 1));
-                if (typedSlogan.length === 0) {
-                    clearInterval(deletingInterval);
-                    setTimeout(startTyping, 1000); // Delay before starting typing again
-                }
+        const currentSlogan = slogans[sloganIndex];
+
+        if (isDeleting) {
+            interval = setInterval(() => {
+                setTypedSlogan((prev) => prev.slice(0, -1));
             }, deletingSpeed);
-        };
 
-        const startTyping = () => {
-            typingInterval = setInterval(() => {
-                setTypedSlogan((prev) => prev + slogans[sloganIndex][prev.length]);
-                if (typedSlogan.length === slogans[sloganIndex].length) {
-                    clearInterval(typingInterval);
-                    setTimeout(() => {
-                        setSloganIndex((prevIndex) => (prevIndex + 1) % slogans.length);
-                        deleteSlogan(); // Start deleting after typing
-                    }, changingSpeed);
-                }
-            }, typingSpeed);
-        };
+            if (typedSlogan === "") {
+                clearInterval(interval);
+                setIsDeleting(false);
+                setSloganIndex((prevIndex) => (prevIndex + 1) % slogans.length);
+            }
+        } else {
+            // Typing effect
+            if (typedSlogan.length < currentSlogan.length) {
+                interval = setInterval(() => {
+                    setTypedSlogan((prev) => currentSlogan.slice(0, prev.length + 1));
+                }, typingSpeed);
+            } else {
+                clearInterval(interval);
+                setTimeout(() => setIsDeleting(true), changingSpeed);
+            }
+        }
 
-        const timeout = setTimeout(() => {
-            deleteSlogan();
-        }, pauseBeforeTyping);
-
-        return () => {
-            clearTimeout(timeout);
-            clearInterval(typingInterval);
-            clearInterval(deletingInterval);
-        };
-    }, [typedSlogan, sloganIndex]);
+        return () => clearInterval(interval);
+    }, [typedSlogan, isDeleting, sloganIndex, slogans]);
 
     return (
         <div className="10 w-full h-1/2 z-50 p-20 pt-20">
-            <h1 className="text-3xl font-nue text-white underline font-bold">SWASTHA LAB</h1>
-            <h1 className="text-6xl font-nue text-white font-bold typing-effect">
+            <h1 className="text-6xl w-1/2 font-nue text-white font-bold typing-effect">
                 {typedSlogan}
             </h1>
         </div>
     );
 };
+
 
 export default function Login() {
     const [rotation, setRotation] = useState<number>(0);
@@ -162,7 +153,7 @@ export default function Login() {
                             className={`w-10/12 p-1 aspect-square`}
                             />
                         </div>
-                        <div className="flex flex-col w-1/3 aspect-[1/1.4] bg-gradient-to-br from-white via-white/90 to-white/80 rounded-xl p-3 z-50">
+                        <div className="flex flex-col w-1/3 aspect-[1.2/1.7] bg-gradient-to-br from-white via-white/90 to-white/80 rounded-xl p-5 z-50">
                             <div className="flex flex-col h-2/3 w-full">
                                 <h1 className="font-nue font-bold text-3xl">IDENTITY CARD</h1>
                                 <div className="flex flex-row w-full">
