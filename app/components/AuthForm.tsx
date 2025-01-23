@@ -44,14 +44,14 @@ const AuthForm: FC = () => {
 
   return (
     <div className="flex flex-col w-10/12 h-full items-center">
-      <form onSubmit={handleSubmit} className="w-full flex flex-col">
+      <form onSubmit={handleSubmit} className="w-full flex flex-col text-white">
         <div className="flex flex-row justify-between w-full h-16">
           <div className="flex flex-col w-5/12 h-full">
-            <span className="font-nue text-[0.7rem] ml-1">First Name</span>
+            <span className="font-nue text-[0.7rem]  ml-1">First Name</span>
             <input
               type="text"
               placeholder="e.g. Hari"
-              className="bg-black h-full font-jksans text-sm rounded-lg pl-2 m-0 w-full focus:outline-none focus:border focus:border-white/40"
+              className="bg-black h-full text-white font-jksans text-sm rounded-lg pl-2 m-0 w-full focus:outline-none focus:border focus:border-white/40"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
@@ -60,8 +60,8 @@ const AuthForm: FC = () => {
             <span className="font-nue text-[0.7rem] ml-1">Last Name</span>
             <input
               type="text"
-              placeholder="e.g. B. Aacharya"
-              className="bg-black h-full font-jksans text-sm rounded-lg pl-2 m-0 w-full focus:outline-none focus:border focus:border-white/40"
+              placeholder="e.g. Acharya"
+              className="bg-black h-full text-white font-jksans text-sm rounded-lg pl-2 m-0 w-full focus:outline-none focus:border focus:border-white/40"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
@@ -74,7 +74,7 @@ const AuthForm: FC = () => {
             <input
               type="email"
               placeholder="e.g. haribahadur@gmail.com"
-              className="bg-black h-full font-jksans text-sm rounded-lg pl-2 m-0 w-full focus:outline-none focus:border focus:border-white/40"
+              className="bg-black h-full text-white font-jksans text-sm rounded-lg pl-2 m-0 w-full focus:outline-none focus:border focus:border-white/40"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -82,7 +82,7 @@ const AuthForm: FC = () => {
         </div>
 
         <div className="flex flex-col items-center w-full h-24 mt-3">
-          <div className="flex flex-col h-full w-full">
+          <div className="flex flex-col text-white h-full w-full">
             <span className="font-nue text-[0.7rem] ml-1">Password</span>
             <input
               type="password"
@@ -107,7 +107,7 @@ const AuthForm: FC = () => {
 
         <button
           type="submit"
-          className="hover:cursor-pointer hover:bg-white transition duration-300 ease-in-out flex flex-col items-center justify-center w-full h-12 rounded-xl mt-3 bg-white/90 last:font-jksans text-lg text-black font-bold"
+          className="hover:cursor-pointer hover:bg-white transition duration-300 ease-in-out flex flex-col items-center justify-center w-full h-12 rounded-xl mt-3 bg-white/90 last:font-jksans text-lg text-white font-bold"
         >
           SIGN UP
         </button>

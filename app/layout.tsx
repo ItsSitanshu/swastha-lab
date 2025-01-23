@@ -16,10 +16,12 @@ export const metadata: Metadata = {
     icon: "/logo.ico",
     apple: "/logo-apple.png",
     shortcut: "/logo.png", 
-  },
-  themeColor: "#ffffff",
+  }
 };
 
+export const viewport = {
+  themeColor: "#B61717",  
+};
 export default function RootLayout({
   children,
 }: Readonly<{
