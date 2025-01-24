@@ -39,7 +39,7 @@ export default function DashboardPage() {
   return (
     <>
       {user ? (
-        <div className="flex h-screen bg-background ">
+        <div className="flex h-screen bg-background font-jksans">
           <DashboardSidebar />
           <div className="flex-1 p-6">
             <div className="flex justify-between items-center mb-6">
@@ -57,10 +57,10 @@ export default function DashboardPage() {
                   type="text"
                 />
                 <button className="bg-blue-600 text-white px-4 py-2 rounded-lg mr-4">
-                  <i className="fas fa-plus"></i>
+                  <i className="fas fa-plus"></i> Add
                 </button>
                 <button className="bg-gray-200 text-gray-600 px-4 py-2 rounded-lg">
-                  <i className="fas fa-cog"></i>
+                  <i className="fas fa-cog"></i> Settings
                 </button>
                 <div className="flex items-center ml-4">
                   <img
@@ -71,7 +71,7 @@ export default function DashboardPage() {
                     width="40"
                   />
                   <div>
-                    <div className="font-semibold">Pranjal</div>
+                    <div className="font-semibold text-foreground">{user.user_metadata.username}</div>
                     <div className="text-gray-500 text-sm">Super admin</div>
                   </div>
                 </div>
@@ -87,7 +87,7 @@ export default function DashboardPage() {
                   width="80"
                 />
                 <div>
-                  <h2 className="text-xl font-semibold">{user.user_metadata.username}</h2>
+                  <h2 className="text-xl font-semibold text-foreground">{user.user_metadata.username}</h2>
                   <div className="text-gray-500">Have uneven jawline</div>
                 </div>
                 <button className="ml-auto bg-blue-600 text-white px-4 py-2 rounded-lg">
@@ -95,28 +95,28 @@ export default function DashboardPage() {
                 </button>
               </div>
               <div className="border-b border-gray-200 mb-6">
-                <ul className="flex">
-                  <li className="mr-6 pb-2 border-b-2 border-transparent">
+                <div className="flex">
+                  <div className="mr-6 pb-2 border-b-2 border-transparent">
                     <a className="text-gray-600" href="#">
                       Patient Information
                     </a>
-                  </li>
-                  <li className="mr-6 pb-2 border-b-2 border-transparent">
+                  </div>
+                  <div className="mr-6 pb-2 border-b-2 border-transparent">
                     <a className="text-gray-600" href="#">
                       Appointment History
                     </a>
-                  </li>
-                  <li className="mr-6 pb-2 border-b-2 border-transparent">
+                  </div>
+                  <div className="mr-6 pb-2 border-b-2 border-transparent">
                     <a className="text-gray-600" href="#">
                       Next Treatment
                     </a>
-                  </li>
-                  <li className="pb-2 border-b-2 border-blue-600">
+                  </div>
+                  <div className="pb-2 border-b-2 border-blue-600">
                     <a className="text-blue-600" href="#">
                       Medical Record
                     </a>
-                  </li>
-                </ul>
+                  </div>
+                </div>
               </div>
               <div>
                 <div className="flex mb-6">
@@ -127,13 +127,72 @@ export default function DashboardPage() {
                     Cosmetic
                   </button>
                 </div>
-                {/* Removed the section below */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="bg-gray-50 p-6 rounded-lg shadow">
+                    <h3 className="text-lg font-semibold mb-4 text-foreground">Odontogram</h3>
+                    <img
+                      alt="img holani"
+                      className="w-full"
+                      height="300"
+                      src=""
+                      width="300"
+                    />
+                  </div>
+                  <div className="bg-gray-50 p-6 rounded-lg shadow">
+                    <h3 className="text-lg font-semibold mb-4 text-foreground">Maxillary Left Lateral Incisor</h3>
+                    <div className="mb-4">
+                      <div className="flex justify-between items-center mb-2">
+                        <div className="text-gray-500">MEI 03</div>
+                        <div className="text-green-600">Done</div>
+                      </div>
+                      <div className="bg-white p-4 rounded-lg shadow">
+                        <div className="flex justify-between items-center mb-2">
+                          <div className="text-gray-600">Condition</div>
+                          <div className="text-gray-600">Caries</div>
+                        </div>
+                        <div className="flex justify-between items-center mb-2">
+                          <div className="text-gray-600">Treatment</div>
+                          <div className="text-gray-600">Tooth filling</div>
+                        </div>
+                        <div className="flex justify-between items-center mb-2">
+                          <div className="text-gray-600">Dentist</div>
+                          <div className="text-gray-600">Drg Soap Mactavish</div>
+                        </div>
+                        <div className="text-gray-500">Advanced Decay</div>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="flex justify-between items-center mb-2">
+                        <div className="text-gray-500">APR 12</div>
+                        <div className="text-yellow-600">Pending</div>
+                      </div>
+                      <div className="bg-white p-4 rounded-lg shadow">
+                        <div className="flex justify-between items-center mb-2">
+                          <div className="text-gray-600">Condition</div>
+                          <div className="text-gray-600">Caries</div>
+                        </div>
+                        <div className="flex justify-between items-center mb-2">
+                          <div className="text-gray-600">Treatment</div>
+                          <div className="text-gray-600">Tooth filling</div>
+                        </div>
+                        <div className="flex justify-between items-center mb-2">
+                          <div className="text-gray-600">Dentist</div>
+                          <div className="text-gray-600">Drg Soap Mactavish</div>
+                        </div>
+                        <div className="text-gray-500">Reason: Not enough time</div>
+                        <div className="text-gray-500">Decay in pulp</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       ) : (
-        <a href='auth/register/'>NO USER LOGGED IN</a>
+        <a href="auth/register/" className="text-blue-600">
+          NO USER LOGGED IN
+        </a>
       )}
     </>
   );

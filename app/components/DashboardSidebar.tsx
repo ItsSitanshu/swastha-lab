@@ -1,7 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
-interface DashboardInterface {
-}
+import React from 'react';
 
 const sections = [
   {
@@ -41,33 +38,27 @@ const sections = [
 const DashboardSidebar: React.FC = () => {
   return (
     <div className="w-64 bg-white p-6 border-r border-black/30">
-    <div className="flex items-center mb-8">
-      <img
-        alt=""
-        className="w-10 h-10 mr-3"
-        height="40"
-        src="/logo.svg"
-        width="40"
-      />
-      <span className="text-xl font-semibold text-black">Swastha Lab</span>
-    </div>
-    {sections.map((section, index) => (
-      <div key={index} className="mb-8">
-        <h2 className="text-sm font-semibold text-gray-500 uppercase mb-2">{section.title}</h2>
-        <ul>
-          {section.items.map((item, idx) => (
-            <li key={idx} className="mb-4">
-              <a className="flex items-center text-gray-600" href={item.href}>
-                <i className={`${item.icon} mr-3`}></i>
-                {item.text}
-              </a>
-            </li>
-          ))}
-        </ul>
+      <div className="flex items-center mb-8">
+        <img alt="" className="w-10 h-10 mr-3" height="40" src="/logo.svg" width="40" />
+        <span className="text-xl font-semibold text-black">Swastha Lab</span>
       </div>
-    ))}
+      {sections.map((section, index) => (
+        <div key={index} className="mb-8">
+          <h2 className="text-sm font-semibold text-gray-500 uppercase mb-2">{section.title}</h2>
+          <div>
+            {section.items.map((item, idx) => (
+              <div key={idx} className="mb-4">
+                <a className="flex items-center text-gray-600" href={item.href}>
+                  <i className={`${item.icon} mr-3`}></i>
+                  {item.text}
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
-  )  
-}
+  );
+};
 
 export default DashboardSidebar;
