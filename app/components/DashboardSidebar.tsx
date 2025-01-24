@@ -1,17 +1,90 @@
-import React from 'react';
+import React from "react";
+import Image from "next/image";
+
+import dashboardIcon from "@/app/assets/images/icons/dashboard/dashboard.svg";
+import AdashboardIcon from "@/app/assets/images/icons/dashboard/A_dashboard.svg";
+
+import patientIcon from "@/app/assets/images/icons/dashboard/patient.svg";
+import ApatientIcon from "@/app/assets/images/icons/dashboard/A_patient.svg";
+
+import messageIcon from "@/app/assets/images/icons/dashboard/message.svg";
+import AmessageIcon from "@/app/assets/images/icons/dashboard/A_message.svg";
+
+import appointmentIcon from "@/app/assets/images/icons/dashboard/appointment.svg";
+import AappointmentIcon from "@/app/assets/images/icons/dashboard/A_appointment.svg";
+
+import recordIcon from "@/app/assets/images/icons/dashboard/record.svg";
+import ArecordIcon from "@/app/assets/images/icons/dashboard/A_record.svg";
+
+import analyticsIcon from "@/app/assets/images/icons/dashboard/analytics.svg";
+import AanalyticsIcon from "@/app/assets/images/icons/dashboard/A_analytics.svg";
+
+import billingIcon from "@/app/assets/images/icons/dashboard/billing.svg";
+import AbillingIcon from "@/app/assets/images/icons/dashboard/A_billing.svg";
+
+import settingsIcon from "@/app/assets/images/icons/dashboard/settings.svg";
+import AsettingsIcon from "@/app/assets/images/icons/dashboard/A_settings.svg";
+
+import logoutIcon from "@/app/assets/images/icons/dashboard/logout.svg";
 
 const SidebarItems = [
-  { icon: '/icons/dashboard.svg', text: 'Dashboard', href: '#', active: true },
-  { icon: '/icons/patient.svg', text: 'Patient', href: '#' },
-  { icon: '/icons/message.svg', text: 'Message', href: '#', badge: 120 },
-  { icon: '/icons/appointment.svg', text: 'Appointment', href: '#' },
-  { icon: '/icons/medical.svg', text: 'Medical Record', href: '#' },
-  { icon: '/icons/analytics.svg', text: 'Analytics', href: '#' },
-  { icon: '/icons/billing.svg', text: 'Billing', href: '#' },
-  { icon: '/icons/settings.svg', text: 'Settings', href: '#' },
+  {
+    icon: dashboardIcon,
+    Aicon: AdashboardIcon,
+    text: "Dashboard",
+    href: "/dashboard",
+  },
+  {
+    icon: patientIcon,
+    Aicon: ApatientIcon,
+    text: "Patient",
+    href: "/dashboard/patient",
+  },
+  {
+    icon: messageIcon,
+    Aicon: AmessageIcon,
+    text: "Message",
+    href: "/dashboard/message",
+  },
+  {
+    icon: appointmentIcon,
+    Aicon: AappointmentIcon,
+    text: "Appointment",
+    href: "/dashboard/appointment",
+  },
+  {
+    icon: recordIcon,
+    Aicon: ArecordIcon,
+    text: "Record",
+    href: "/dashboard/record",
+  },
+  {
+    icon: analyticsIcon,
+    Aicon: AanalyticsIcon,
+    text: "Analytics",
+    href: "/dashboard/analytics",
+  },
+  {
+    icon: billingIcon,
+    Aicon: AbillingIcon,
+    text: "Billing",
+    href: "/dashboard/billing",
+  },
+  {
+    icon: settingsIcon,
+    Aicon: AsettingsIcon,
+    text: "Settings",
+    href: "/dashboard/settings",
+  },
 ];
 
-const DashboardSidebar: React.FC = () => {
+interface DashboardSidebarOptions {
+  currentPage: string;
+}
+
+const DashboardSidebar: React.FC<DashboardSidebarOptions> = ({
+  currentPage,
+}) => {
   return (
     <div className="w-64 bg-white p-6 border-r border-gray-200 flex flex-col h-screen justify-between">
       <div>
@@ -25,24 +98,27 @@ const DashboardSidebar: React.FC = () => {
             <a
               key={index}
               href={item.href}
-              className={`flex items-center p-3 rounded-lg mb-2 ${
-                item.active ? 'bg-blue-100 text-blue-600 font-semibold' : 'text-gray-700'
-              } transition-colors duration-200 delay-75 hover:bg-gray-100`}
+              className={`flex items-center px-3 py-2 rounded-lg mb-2 transition-colors duration-400 ${
+                currentPage === item.text
+                  ? "bg-dark text-foreground font-semibold"
+                  : "hover:bg-black/30 text-background font-semibold"
+              }`}
             >
-              <img src={item.icon} alt="" className="w-6 h-6 mr-3" />
+              <Image
+                src={currentPage === item.text ? item.Aicon : item.icon}
+                alt={item.text}
+                width={24}
+                height={24}
+                className="w-6 h-6 mr-3"
+              />
               <span>{item.text}</span>
-              {item.badge && (
-                <span className="ml-auto bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
-                  {item.badge}
-                </span>
-              )}
             </a>
           ))}
         </nav>
       </div>
 
       <a href="/logout" className="flex items-center text-red-500 p-3 rounded-lg">
-        <img src="/icons/logout.svg" alt="Logout" className="w-5 h-5 mr-3" />
+        <Image src={logoutIcon} alt="Logout" width={20} height={20} className="w-5 h-5 mr-3" />
         <span>Log out</span>
       </a>
     </div>
