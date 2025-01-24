@@ -87,7 +87,7 @@ export default function DashboardPage() {
                   width="80"
                 />
                 <div>
-                  <h2 className="text-xl font-semibold text-foreground">{user.user_metadata.username}</h2>
+                  <h2 className="text-xl font-semibold text-black">{user.user_metadata.username}</h2>
                   <div className="text-gray-500">Have uneven jawline</div>
                 </div>
                 <button className="ml-auto bg-blue-600 text-white px-4 py-2 rounded-lg">
@@ -129,7 +129,7 @@ export default function DashboardPage() {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="bg-gray-50 p-6 rounded-lg shadow">
-                    <h3 className="text-lg font-semibold mb-4 text-foreground">Odontogram</h3>
+                    <h3 className="text-lg font-semibold mb-4 text-foreground">swasthalab</h3>
                     <img
                       alt="img holani"
                       className="w-full"
@@ -139,7 +139,7 @@ export default function DashboardPage() {
                     />
                   </div>
                   <div className="bg-gray-50 p-6 rounded-lg shadow">
-                    <h3 className="text-lg font-semibold mb-4 text-foreground">Maxillary Left Lateral Incisor</h3>
+                    <h3 className="text-lg font-semibold mb-4 text-black">Maxillary Left Lateral Incisor</h3>
                     <div className="mb-4">
                       <div className="flex justify-between items-center mb-2">
                         <div className="text-gray-500">MEI 03</div>
