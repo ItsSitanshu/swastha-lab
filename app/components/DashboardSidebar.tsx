@@ -10,11 +10,11 @@ import ApatientIcon from "@/app/assets/images/icons/dashboard/A_patient.svg";
 import messageIcon from "@/app/assets/images/icons/dashboard/message.svg";
 import AmessageIcon from "@/app/assets/images/icons/dashboard/A_message.svg";
 
+import calenderIcon from "@/app/assets/images/icons/dashboard/calender.svg";
+import AcalenderIcon from "@/app/assets/images/icons/dashboard/A_calender.svg";
+
 import appointmentIcon from "@/app/assets/images/icons/dashboard/appointment.svg";
 import AappointmentIcon from "@/app/assets/images/icons/dashboard/A_appointment.svg";
-
-import recordIcon from "@/app/assets/images/icons/dashboard/record.svg";
-import ArecordIcon from "@/app/assets/images/icons/dashboard/A_record.svg";
 
 import analyticsIcon from "@/app/assets/images/icons/dashboard/analytics.svg";
 import AanalyticsIcon from "@/app/assets/images/icons/dashboard/A_analytics.svg";
@@ -47,16 +47,16 @@ const SidebarItems = [
     href: "/dashboard/message",
   },
   {
+    icon: calenderIcon,
+    Aicon: AcalenderIcon,
+    text: "Calender",
+    href: "/dashboard/calender",
+  },
+  {
     icon: appointmentIcon,
     Aicon: AappointmentIcon,
     text: "Appointment",
     href: "/dashboard/appointment",
-  },
-  {
-    icon: recordIcon,
-    Aicon: ArecordIcon,
-    text: "Record",
-    href: "/dashboard/record",
   },
   {
     icon: analyticsIcon,
