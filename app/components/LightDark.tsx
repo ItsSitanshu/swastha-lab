@@ -22,7 +22,7 @@ const LightDarkIcon: React.FC<LightDarkIconProps> = ({
 
   useEffect(() => {
     const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    setIconPath(isDarkMode ? darkIconPath : lightIconPath);
+    setIconPath(isDarkMode ? lightIconPath : lightIconPath);
 
     const listener = (event: MediaQueryListEvent) => {
       setIconPath(event.matches ? darkIconPath : lightIconPath);

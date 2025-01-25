@@ -25,7 +25,7 @@ const Navbar: React.FC<{
   )}&background=${getRandomColor()}&color=fff`;
 
   return (
-    <div className="flex justify-between items-center py-4 mb-6 h-16 w-full border-b border-b-gray-200/20 bg-background">
+    <div className="flex justify-between items-center py-4 mb-6 h-16 w-full border-b border-b-foreground/90 bg-background">
       <div className="flex items-center h-10 w-6/12">
         <div className="flex flex-row items-center font-medium text-foreground h-full w-full">
           Dashboard

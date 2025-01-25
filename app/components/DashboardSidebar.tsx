@@ -77,7 +77,7 @@ const DashboardSidebar: React.FC<DashboardSidebarOptions> = ({
   currentPage,
 }) => {
   return (
-    <div className="fixed top-0 left-0 w-64 h-screen bg-background p-6 border-r border-gray-200/20 flex flex-col justify-between">
+    <div className="fixed top-0 left-0 w-64 h-screen bg-background p-6 border-r border-foreground/50 flex flex-col justify-between">
       <div>
         <div className="flex items-center mb-8">
           <img alt="Logo" className="w-10 h-10 mr-3" src="/logo.svg" />
