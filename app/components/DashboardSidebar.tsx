@@ -16,9 +16,6 @@ import AcalenderIcon from "@/app/assets/images/icons/dashboard/A_calender.svg";
 import appointmentIcon from "@/app/assets/images/icons/dashboard/appointment.svg";
 import AappointmentIcon from "@/app/assets/images/icons/dashboard/A_appointment.svg";
 
-import analyticsIcon from "@/app/assets/images/icons/dashboard/analytics.svg";
-import AanalyticsIcon from "@/app/assets/images/icons/dashboard/A_analytics.svg";
-
 import billingIcon from "@/app/assets/images/icons/dashboard/billing.svg";
 import AbillingIcon from "@/app/assets/images/icons/dashboard/A_billing.svg";
 
@@ -57,12 +54,6 @@ const SidebarItems = [
     Aicon: AappointmentIcon,
     text: "Appointment",
     href: "/dashboard/appointment",
-  },
-  {
-    icon: analyticsIcon,
-    Aicon: AanalyticsIcon,
-    text: "Analytics",
-    href: "/dashboard/analytics",
   },
   {
     icon: billingIcon,

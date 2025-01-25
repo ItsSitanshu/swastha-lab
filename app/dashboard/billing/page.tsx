@@ -6,7 +6,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const supabase = createClientComponentClient();
 
-export default function DashboardPatientPage() {
+export default function DashboardBillingPage() {
   const [user, setUser] = useState<any>();
 
   useEffect(() => {
@@ -34,28 +34,24 @@ export default function DashboardPatientPage() {
     };
   }, []);
 
-  useEffect(() => {
-    if (user) {
-      console.log(user.user_metadata);
-    }
-  }, [user]);
-
   return (
     <>
       {user ? (
         <div className="flex h-screen bg-background font-jksans">
           <DashboardSidebar currentPage="Billing" />
-          <div className="flex-1 p-6">
+
+          <div className="flex-1 p-6 ml-64"> 
             <div className="flex justify-between items-center mb-6">
               <div className="flex items-center">
                 <h1 className="text-2xl text-foreground font-semibold mr-4">
-                  Patient
+                  Billing
                 </h1>
                 <div className="text-foreground">
-                  Patient list &gt;
-                  <span className="text-blue-600">Patient detail</span>
+                  Billing &gt;
+                  <span className="text-blue-600"> Patient Bills</span>
                 </div>
               </div>
+
               <div className="flex items-center">
                 <input
                   className="border border-gray-300 rounded-lg px-4 py-2 mr-4 bg-background text-foreground"
@@ -88,16 +84,8 @@ export default function DashboardPatientPage() {
 
             <div className="grid grid-cols-2 gap-4 mb-6 text-black">
               {[
-                {
-                  title: "Revenue this month",
-                  amount: "$10,398",
-                  change: "+ $498",
-                },
-                {
-                  title: "Profit this month",
-                  amount: "$3,982",
-                  change: "+ $198",
-                },
+                { title: "Revenue this month", amount: "$10,398", change: "+ $498" },
+                { title: "Profit this month", amount: "$3,982", change: "+ $198" },
               ].map((item, index) => (
                 <div className="bg-white p-4 rounded-lg shadow" key={index}>
                   <div className="flex items-center justify-between mb-2">
@@ -115,9 +103,7 @@ export default function DashboardPatientPage() {
                   <button className="text-blue-500 border-b-2 border-blue-500 pb-2">
                     Bill
                   </button>
-                  <button className="text-gray-500 pb-2">
-                    Payment Received
-                  </button>
+                  <button className="text-gray-500 pb-2">Payment Received</button>
                 </div>
                 <div className="flex items-center space-x-4">
                   <input
@@ -189,22 +175,11 @@ export default function DashboardPatientPage() {
                         <td className="py-2 px-4 border-b">{row.date}</td>
                         <td className="py-2 px-4 border-b">{row.amount}</td>
                         <td className="py-2 px-4 border-b">
-                          <span
-                            className={`bg-${
-                              row.payment === "PARTIALLY PAID"
-                                ? "purple"
-                                : "green"
-                            }-100 text-${
-                              row.payment === "PARTIALLY PAID"
-                                ? "purple"
-                                : "green"
-                            }-500 text-xs px-2 py-1 rounded`}
-                          >
+                          <span className="bg-purple-100 text-purple-500 text-xs px-2 py-1 rounded">
                             {row.payment}
                           </span>
                         </td>
-                        <td className="py-2 px-4 border-b">
-                        </td>
+                        <td className="py-2 px-4 border-b"></td>
                       </tr>
                     ))}
                   </tbody>
