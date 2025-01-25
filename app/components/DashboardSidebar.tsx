@@ -29,7 +29,7 @@ const SidebarItems = [
     icon: dashboardIcon,
     Aicon: AdashboardIcon,
     text: "Dashboard",
-    href: "/dashboard",
+    href: "/dashboard/dashboard",
   },
   {
     icon: patientIcon,
