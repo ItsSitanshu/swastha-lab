@@ -15,8 +15,8 @@ export default {
         plantin: ["Plantin Infant", "serif"]
       },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: "var(--background-100)",
+        foreground: "var(--foreground-100)",
         light: 'var(--light)',
         mod: 'var(--mod)',
         dark: 'var(--dark)',

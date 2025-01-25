@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const supabase = createClientComponentClient();
 
@@ -44,24 +45,24 @@ const AuthForm: FC = () => {
 
   return (
     <div className="flex flex-col w-10/12 h-full items-center">
-      <form onSubmit={handleSubmit} className="w-full flex flex-col text-white">
-        <div className="flex flex-row justify-between w-full h-16">
+      <form onSubmit={handleSubmit} className="w-full flex flex-col">
+      <div className="flex flex-row justify-between w-full h-16">
           <div className="flex flex-col w-5/12 h-full">
-            <span className="font-nue text-[0.7rem]  ml-1">First Name</span>
+            <span className="font-nue text-[1rem] underline ml-1 text-foreground/80">First Name</span>
             <input
               type="text"
               placeholder="e.g. Hari"
-              className="bg-black h-full text-white font-jksans text-sm rounded-lg pl-2 m-0 w-full focus:outline-none focus:border focus:border-white/40"
+              className="bg-background border-2 h-14 font-jksans text-[1rem] rounded-lg pl-3 m-0 w-full focus:outline-none focus:border-mod opacity-55 text-foreground"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
           </div>
           <div className="flex flex-col w-6/12 h-full">
-            <span className="font-nue text-[0.7rem] ml-1">Last Name</span>
+            <span className="font-nue text-[1rem] underline ml-1 text-foreground/80">Last Name</span>
             <input
               type="text"
               placeholder="e.g. Acharya"
-              className="bg-black h-full text-white font-jksans text-sm rounded-lg pl-2 m-0 w-full focus:outline-none focus:border focus:border-white/40"
+              className="bg-background border-2 h-14 font-jksans text-[1rem] rounded-lg pl-3 m-0 w-full focus:outline-none focus:border-mod opacity-55 text-foreground"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
@@ -70,11 +71,11 @@ const AuthForm: FC = () => {
 
         <div className="flex flex-col items-center w-full h-[4.2em] mt-3">
           <div className="flex flex-col h-full w-full">
-            <span className="font-nue text-[0.7rem] ml-1">Email</span>
+            <span className="font-nue text-[1rem] underline ml-1 text-foreground/80">Email</span>
             <input
               type="email"
               placeholder="e.g. haribahadur@gmail.com"
-              className="bg-black h-full text-white font-jksans text-sm rounded-lg pl-2 m-0 w-full focus:outline-none focus:border focus:border-white/40"
+              className="bg-background border-2 h-14 font-jksans text-[1rem] rounded-lg pl-3 m-0 w-full focus:outline-none focus:border-mod opacity-55 text-foreground"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -82,12 +83,12 @@ const AuthForm: FC = () => {
         </div>
 
         <div className="flex flex-col items-center w-full h-24 mt-3">
-          <div className="flex flex-col text-white h-full w-full">
-            <span className="font-nue text-[0.7rem] ml-1">Password</span>
+          <div className="flex flex-col h-full w-full">
+            <span className="font-nue text-[1rem] underline ml-1 text-foreground/80">Password</span>
             <input
               type="password"
               placeholder="e.g. sec!!rE@321"
-              className="bg-black h-full font-jksans text-sm rounded-lg pl-2 m-0 w-full focus:outline-none focus:border focus:border-white/40"
+              className="bg-background border-2 h-14 font-jksans text-[1rem] rounded-lg pl-3 m-0 w-full focus:outline-none focus:border-mod opacity-55 text-foreground"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -98,24 +99,28 @@ const AuthForm: FC = () => {
         </div>
 
         {error ? (
-          <p className="text-red-500/80 text-[0.7em] font-jksans mt-2">{error}</p>
+          <p className="text-light text-[0.7em] font-jksans mt-2">{error}</p>
         ) : success ? (
-          <p className="text-green-500/80 text-[0.7em] font-jksans mt-2">{success}</p>
+          <p className="text-green-500 text-[0.7em] font-jksans mt-2">{success}</p>
         ) : (
           <p>&#8239;</p>
         )}
 
         <button
           type="submit"
-          className="hover:cursor-pointer hover:bg-white transition duration-300 ease-in-out flex flex-col items-center justify-center w-full h-12 rounded-xl mt-3 bg-white/90 last:font-jksans text-lg text-white font-bold"
+          className="border-2 border-foreground hover:cursor-pointer hover:bg-foreground hover:text-background transition duration-300 ease-in-out flex flex-col items-center justify-center w-full h-12 rounded-xl mt-2 bg-foreground/90 font-jksans text-lg text-foreground font-bold"
         >
-          SIGN UP
+          REGISTER
         </button>
       </form>
 
-      <p className="text-white/[.5] font-jksans text-xs text-thin mt-4">
+      <p className="text-foreground/60 font-jksans text-xs mt-4">
         Already have an account?{" "}
-        <Link href='/auth/login'><span className="font-bold underline text-[0.9rem] text-white" >Login</span></Link>
+        <Link href="/auth/login">
+          <span className="font-bold text-[0.9rem] underline text-foreground">
+            Login
+          </span>
+        </Link>
       </p>
     </div>
   );
