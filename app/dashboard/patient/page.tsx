@@ -16,6 +16,7 @@ export default function DashboardPatientPage() {
   const [user, setUser] = useState<any>();
 
   const [subSection, setSubSection] = useState<number>(0);
+  const [view, setView] = useState<number>(0);
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -50,15 +51,20 @@ export default function DashboardPatientPage() {
         <>
         <DashboardSidebar currentPage={SUB_PAGE_NAME}/>
         <div className="ml-64 flex flex-row bg-background font-jksans">
+        
         <div className="flex-1 p-6">
             <Navbar user={user} page={SUB_PAGE_NAME}/>
             <div className="bg-white p-6 rounded-lg shadow">
-              
-              <div>
+              {view == 0 ? 
+                <button className="bg-green-600 w-full h-24" onClick={() => setView(1)}>
+                  OPEN DETAIL
+                </button>
+              : <div>
                 <div className="flex mb-6"></div>
                 <PatientTab user={user} currentSubPage={subSection} setCurrentSubPage={setSubSection}/>
                 { subSection == 2 ? <MedicalRecord/> : subSection == 1 ? <AppointmentHistory/> : subSection == 0 ? <PatientInformation/> : <></> }
               </div>
+              }
             </div>
           </div>
         </div>
