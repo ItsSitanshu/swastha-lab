@@ -44,7 +44,7 @@ export default function DashboardPatientPage() {
     <>
       {user ? (
         <div className="flex h-screen bg-background font-jksans">
-          <DashboardSidebar currentPage="Patient" />
+          <DashboardSidebar currentPage="Billing" />
           <div className="flex-1 p-6">
             <div className="flex justify-between items-center mb-6">
               <div className="flex items-center">
@@ -143,7 +143,7 @@ export default function DashboardPatientPage() {
                         "PAYMENT",
                         "",
                       ].map((header, index) => (
-                        <th className="py-2 px-4 border-b" key={index}>
+                        <th className="py-2 text-left px-4 border-b" key={index}>
                           {header}
                         </th>
                       ))}

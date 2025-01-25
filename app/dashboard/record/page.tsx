@@ -40,7 +40,7 @@ export default function DashboardPatientPage() {
     <>
       {user ? (
         <div className="flex h-screen bg-background font-jksans">
-          <DashboardSidebar currentPage="Patient"/>
+          <DashboardSidebar currentPage="Record"/>
           <div className="flex-1 p-6">
             <div className="flex justify-between items-center mb-6">
               <div className="flex items-center">
