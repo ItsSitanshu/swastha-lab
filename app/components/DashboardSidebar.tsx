@@ -10,8 +10,8 @@ import ApatientIcon from "@/app/assets/images/icons/dashboard/A_patient.svg";
 import messageIcon from "@/app/assets/images/icons/dashboard/message.svg";
 import AmessageIcon from "@/app/assets/images/icons/dashboard/A_message.svg";
 
-import calenderIcon from "@/app/assets/images/icons/dashboard/calender.svg";
-import AcalenderIcon from "@/app/assets/images/icons/dashboard/A_calender.svg";
+import calendarIcon from "@/app/assets/images/icons/dashboard/calendar.svg";
+import AcalendarIcon from "@/app/assets/images/icons/dashboard/A_calendar.svg";
 
 import appointmentIcon from "@/app/assets/images/icons/dashboard/appointment.svg";
 import AappointmentIcon from "@/app/assets/images/icons/dashboard/A_appointment.svg";
@@ -44,10 +44,10 @@ const SidebarItems = [
     href: "/dashboard/message",
   },
   {
-    icon: calenderIcon,
-    Aicon: AcalenderIcon,
-    text: "Calender",
-    href: "/dashboard/calender",
+    icon: calendarIcon,
+    Aicon: AcalendarIcon,
+    text: "Calendar",
+    href: "/dashboard/calendar",
   },
   {
     icon: appointmentIcon,

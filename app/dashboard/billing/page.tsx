@@ -3,8 +3,11 @@
 import { useEffect, useState } from "react";
 import DashboardSidebar from "@/app/components/DashboardSidebar";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import Navbar from "@/app/components/Navbar";
 
 const supabase = createClientComponentClient();
+
+const SUB_PAGE_NAME: string = "Billing";
 
 export default function DashboardBillingPage() {
   const [user, setUser] = useState<any>();
@@ -37,51 +40,11 @@ export default function DashboardBillingPage() {
   return (
     <>
       {user ? (
-        <div className="flex h-screen bg-background font-jksans">
-          <DashboardSidebar currentPage="Billing" />
-
-          <div className="flex-1 p-6 ml-64"> 
-            <div className="flex justify-between items-center mb-6">
-              <div className="flex items-center">
-                <h1 className="text-2xl text-foreground font-semibold mr-4">
-                  Billing
-                </h1>
-                <div className="text-foreground">
-                  Billing &gt;
-                  <span className="text-blue-600"> Patient Bills</span>
-                </div>
-              </div>
-
-              <div className="flex items-center">
-                <input
-                  className="border border-gray-300 rounded-lg px-4 py-2 mr-4 bg-background text-foreground"
-                  placeholder="Search for anything here..."
-                  type="text"
-                />
-                <button className="bg-blue-600 text-white px-4 py-2 rounded-lg mr-4">
-                  Add
-                </button>
-                <button className="bg-gray-200 text-gray-600 px-4 py-2 rounded-lg">
-                  Settings
-                </button>
-                <div className="flex items-center ml-4">
-                  <img
-                    alt="User Avatar"
-                    className="w-10 h-10 rounded-full mr-2"
-                    height="40"
-                    src=""
-                    width="40"
-                  />
-                  <div>
-                    <div className="font-semibold text-foreground">
-                      {user.user_metadata.username}
-                    </div>
-                    <div className="text-gray-500 text-sm">Super admin</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+        <>
+        <DashboardSidebar currentPage={SUB_PAGE_NAME}/>
+        <div className="flex flex-col p-6 ml-64 h-screen bg-background font-jksans">
+          <Navbar user={user} page={SUB_PAGE_NAME}/>
+          <div className="flex-1 "> 
             <div className="grid grid-cols-2 gap-4 mb-6 text-black">
               {[
                 { title: "Revenue this month", amount: "$10,398", change: "+ $498" },
@@ -188,6 +151,7 @@ export default function DashboardBillingPage() {
             </div>
           </div>
         </div>
+        </>
       ) : (
         <a href="auth/register/" className="text-blue-600">
           NO USER LOGGED IN

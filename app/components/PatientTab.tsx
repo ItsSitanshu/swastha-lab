@@ -10,13 +10,13 @@ const PatientTab: React.FC<PatientCardProps> = ({ user }) => {
     return colors[Math.floor(Math.random() * colors.length)];
   };
 
-  const userName = user?.user_metadata?.username || "Guest User";
+  const userName = "Sample Patient";
   const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(
     userName
   )}&background=${getRandomColor()}&color=fff`;
 
   return  (
-    <div className="bg-white p-6 rounded-lg shadow">
+    <div>
       <div className="flex items-center mb-6">
         <img
           alt="Patient Avatar"
@@ -26,8 +26,8 @@ const PatientTab: React.FC<PatientCardProps> = ({ user }) => {
           width="80"
         />
         <div>
-          <h2 className="text-xl font-semibold text-black">{user.user_metadata.username}</h2>
-          <div className="text-gray-500">{}hello</div>
+          <h2 className="text-xl font-semibold text-black">{userName}</h2>
+          <div className="text-gray-500">hello</div>
         </div>
         <button className="ml-auto bg-blue-600 text-white px-4 py-2 rounded-lg">
           Add Note

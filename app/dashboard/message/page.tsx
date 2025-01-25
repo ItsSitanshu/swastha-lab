@@ -10,6 +10,9 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 const supabase = createClientComponentClient();
 
+const SUB_PAGE_NAME: string = "Message";
+
+
 export default function DashboardPatientPage() {
   const [user, setUser] = useState<any>();
 
@@ -44,9 +47,9 @@ export default function DashboardPatientPage() {
     <>
       {user ? (
         <>
-          <DashboardSidebar currentPage="Message"/>
-          <div className="ml-64 flex h-screen bg-background font-jksans">
-          <Navbar user={user}/>
+          <DashboardSidebar currentPage={SUB_PAGE_NAME}/>
+          <div className="ml-64 p-6 flex h-screen bg-background font-jksans">
+            <Navbar user={user} page={SUB_PAGE_NAME}/>
 
           {/* --- MAIN BODY CONTENT STARTS HERE --- */}
           {/* You can start adding the removed content from this point onwards */}
