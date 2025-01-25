@@ -39,8 +39,9 @@ export default function DashboardPatientPage() {
   return (
     <>
       {user ? (
-        <div className="flex h-screen bg-background font-jksans">
-          <DashboardSidebar currentPage="Patient"/>
+        <>
+        <DashboardSidebar currentPage="Patient"/>
+        <div className="ml-64 flex flex-row bg-background font-jksans">
           <div className="flex-1 p-6">
             <div className="flex justify-between items-center mb-6">
               <div className="flex items-center">
@@ -189,6 +190,7 @@ export default function DashboardPatientPage() {
             </div>
           </div>
         </div>
+        </>
       ) : (
         <a href="auth/register/" className="text-blue-600">
           NO USER LOGGED IN
