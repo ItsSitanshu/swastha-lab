@@ -41,12 +41,12 @@ const PatientTab: React.FC<PatientCardProps> = ({ user }) => {
             </a>
           </div>
           <div className="mr-6 pb-2 border-b-2 border-transparent">
-            <a className="text-gray-600" href="#">
+            <a className="text-gray-600" href="/dashboard/patient/appointmenthistory">
               Appointment History
             </a>
           </div>
           <div className="pb-2 border-b-2 border-blue-600">
-            <a className="text-blue-600" href="#">
+            <a className="W-blue-600" href="#">
               Medical Record
             </a>
           </div>
