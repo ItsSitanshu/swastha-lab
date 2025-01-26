@@ -34,8 +34,8 @@ const Column = () => {
 
   return (
     <div className="bg-white p-4 rounded-lg shadow">
-      <div className="flex justify-between items-center mb-4">
-        <div className="flex space-x-4">
+      <div className="flex justify-between items-center mb-4 flex-wrap">
+        <div className="flex space-x-4 mb-2">
           <button className="text-blue-500 border-b-2 border-blue-500 pb-2">
             Bill
           </button>
@@ -65,7 +65,7 @@ const Column = () => {
           </thead>
           <tbody>
             {data.map((row, index) => (
-              <tr key={index}>
+              <tr key={index} className="hover:bg-gray-100 transition duration-200">
                 <td className="py-2 px-4 border-b">
                   {row.id}{" "}
                   <span className="bg-blue-100 text-blue-500 text-xs px-2 py-1 rounded">

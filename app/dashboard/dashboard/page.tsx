@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import DashboardSidebar from "@/app/components/DashboardSidebar";
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Navbar from "@/app/components/Navbar";
 
 const supabase = createClientComponentClient();
@@ -10,23 +10,27 @@ const supabase = createClientComponentClient();
 const SUB_PAGE_NAME = "Dashboard";
 
 export default function DashboardPatientPage() {
-  const [user, setUser ] = useState<any>();
+  const [user, setUser] = useState<any>();
 
   useEffect(() => {
     const fetchSession = async () => {
       try {
-        const { data: { session } } = await supabase.auth.getSession();
-        setUser (session?.user ?? null);
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        setUser(session?.user ?? null);
       } catch (error: any) {
-        console.error('Error fetching session:', error.message);
+        console.error("Error fetching session:", error.message);
       }
     };
 
     fetchSession();
 
-    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser (session?.user ?? null);
-    });
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setUser(session?.user ?? null);
+      }
+    );
 
     return () => {
       authListener.subscription.unsubscribe();
@@ -69,9 +73,6 @@ export default function DashboardPatientPage() {
                     </div>
                     <div className="text-2xl font-semibold">4,592</div>
                     <div className="text-green-500">+15.9%</div>
-                    <p className="text-gray-500 mt-2">
-                      Stay informed with real-time data to enhance patient care and visitor management.
-                    </p>
                   </div>
                   <div className="bg-white p-4 rounded shadow">
                     <div className="flex items-center justify-between mb-2">
@@ -80,9 +81,6 @@ export default function DashboardPatientPage() {
                     </div>
                     <div className="text-2xl font-semibold">260</div>
                     <div className="text-green-500">+15.9%</div>
-                    <p className="text-gray-500 mt-2">
-                      Stay updated with essential information to streamline medical support and management.
-                    </p>
                   </div>
                   <div className="bg-white p-4 rounded shadow">
                     <div className="flex items-center justify-between mb-2">
@@ -91,9 +89,6 @@ export default function DashboardPatientPage() {
                     </div>
                     <div className="text-2xl font-semibold">540</div>
                     <div className="text-red-500">-5.2%</div>
-                    <p className="text-gray-500 mt-2">
-                      Monitor patient statistics to improve healthcare delivery and patient satisfaction.
-                    </p>
                   </div>
                   <div className="bg-white p-4 rounded shadow">
                     <div className="flex items-center justify-between mb-2">
@@ -102,9 +97,6 @@ export default function DashboardPatientPage() {
                     </div>
                     <div className="text-2xl font-semibold">1,500</div>
                     <div className="text-green-500">+10.3%</div>
-                    <p className="text-gray-500 mt-2">
-                      Keep track of appointments to enhance scheduling efficiency and patient care.
-                    </p>
                   </div>
                 </div>
               </div>

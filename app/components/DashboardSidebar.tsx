@@ -68,7 +68,7 @@ const DashboardSidebar: React.FC<DashboardSidebarOptions> = ({
   currentPage,
 }) => {
   return (
-    <div className="fixed top-0 left-0 w-64 h-screen bg-background p-6 border-r border-foreground/50 flex flex-col justify-between">
+    <div className="fixed top-0 left-0 w-64 h-screen bg-background p-6 border-r border-foreground/50 flex flex-col justify-between overflow-y-auto">
       <div>
         <div className="flex items-center mb-8">
           <img alt="Logo" className="w-10 h-10 mr-3" src="/logo.svg" />
@@ -99,8 +99,17 @@ const DashboardSidebar: React.FC<DashboardSidebarOptions> = ({
         </nav>
       </div>
 
-      <a href="/logout" className="flex items-center text-red-500 p-3 rounded-lg hover:bg-foreground transition-all ease-in-out duration-500">
-        <Image src={logoutIcon} alt="Logout" width={20} height={20} className="w-5 h-5 mr-3" />
+      <a
+        href="/logout"
+        className="flex items-center text-red-500 p-3 rounded-lg hover:bg-foreground transition-all ease-in-out duration-500"
+      >
+        <Image
+          src={logoutIcon}
+          alt="Logout"
+          width={20}
+          height={20}
+          className="w-5 h-5 mr-3"
+        />
         <span>Logout</span>
       </a>
     </div>
