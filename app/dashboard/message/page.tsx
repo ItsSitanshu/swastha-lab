@@ -2,16 +2,14 @@
 
 import { useEffect, useState } from "react";
 
-
 import DashboardSidebar from "@/app/components/DashboardSidebar";
 import Navbar from "@/app/components/Navbar";
 
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const supabase = createClientComponentClient();
 
 const SUB_PAGE_NAME: string = "Message";
-
 
 export default function DashboardPatientPage() {
   const [user, setUser] = useState<any>();
@@ -19,18 +17,22 @@ export default function DashboardPatientPage() {
   useEffect(() => {
     const fetchSession = async () => {
       try {
-        const { data: { session } } = await supabase.auth.getSession();
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
         setUser(session?.user ?? null);
       } catch (error: any) {
-        console.error('Error fetching session:', error.message);
+        console.error("Error fetching session:", error.message);
       }
     };
 
     fetchSession();
 
-    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setUser(session?.user ?? null);
+      }
+    );
 
     return () => {
       authListener.subscription.unsubscribe();
@@ -47,15 +49,13 @@ export default function DashboardPatientPage() {
     <>
       {user ? (
         <>
-          <DashboardSidebar currentPage={SUB_PAGE_NAME}/>
+          <DashboardSidebar currentPage={SUB_PAGE_NAME} />
           <div className="ml-64 p-6 flex h-screen bg-background font-jksans">
-            <Navbar user={user} page={SUB_PAGE_NAME}/>
+            <Navbar user={user} page={SUB_PAGE_NAME} />
 
-          {/* --- MAIN BODY CONTENT STARTS HERE --- */}
-          {/* You can start adding the removed content from this point onwards */}
-            
-        </div>
-      </>
+            {/* --- MAIN BODY CONTENT STARTS HERE --- */}
+          </div>
+        </>
       ) : (
         <a href="auth/register/" className="text-blue-600">
           NO USER LOGGED IN
