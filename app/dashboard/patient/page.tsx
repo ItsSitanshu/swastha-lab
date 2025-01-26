@@ -56,9 +56,55 @@ export default function DashboardPatientPage() {
             <Navbar user={user} page={SUB_PAGE_NAME}/>
             <div className="bg-white p-6 rounded-lg shadow">
               {view == 0 ? 
-                <button className="bg-green-600 w-full h-24" onClick={() => setView(1)}>
-                  OPEN DETAIL
-                </button>
+                <div className="bg-white p-4 rounded-md shadow-md">
+                  <table className="w-full text-left">
+                    <thead>
+                      <tr className="text-gray-500">
+                        <th className="py-2">PATIENT NAME</th>
+                        <th className="py-2">PHONE</th>
+                        <th className="py-2">EMAIL</th>
+                        <th className="py-2">ADDRESS</th>
+                        <th className="py-2">REGISTERED</th>
+                        <th className="py-2">LAST VISIT</th>
+                        <th className="py-2">LAST TREATMENT</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-t hover:cursor-pointer hover:bg-foreground-10 transition-all ease-in-out duration-500" onClick={() => { setView(1); setSubSection(0); }}>
+                        <td className="py-2 flex items-center">
+                          <img
+                            alt="Profile picture of user"
+                            className="w-8 h-8 rounded-full mr-2"
+                            src=""
+                          />
+                          Sitanshu Shrestha
+                        </td>
+                        <td className="py-2">(+977) 9781425360</td>
+                        <td className="py-2">sitanshu15shrestha@gmail.com</td>
+                        <td className="py-2">534 Victoria Trail</td>
+                        <td className="py-2">Mar 12, 2021</td>
+                        <td className="py-2">03 May 2021</td>
+                        <td className="py-2">Tooth Scaling + Vene</td>
+                      </tr>
+                      <tr className="border-t">
+                        <td className="py-2 flex items-center">
+                          <img
+                            alt="Profile picture of user"
+                            className="w-8 h-8 rounded-full mr-2"
+                            src=""
+                          />
+                          Aayan Maskey
+                        </td>
+                        <td className="py-2">(+977) 9841732560</td>
+                        <td className="py-2">maskeyaayan08@gmail.com</td>
+                        <td className="py-2">534 Victoria Trail</td>
+                        <td className="py-2">Mar 12, 2021</td>
+                        <td className="py-2">03 May 2021</td>
+                        <td className="py-2">Tooth Scaling + Vene</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               : <div>
                 <div className="flex mb-6"></div>
                 <PatientTab user={user} currentSubPage={subSection} setCurrentSubPage={setSubSection}/>
