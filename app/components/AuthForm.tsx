@@ -5,6 +5,18 @@ import { useRouter } from "next/navigation";
 
 const supabase = createClientComponentClient();
 
+
+const colors = [
+  "34A853", // Green
+  "4285F4", // Blue
+  "FBBC05", // Yellow
+  "DB4437", // Red
+  "FF9800", // Orange
+  "8E24AA", // Purple
+  "00ACC1", // Cyan
+  "9E9D24", // Lime
+];
+
 const AuthForm: FC = () => {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
@@ -35,7 +47,28 @@ const AuthForm: FC = () => {
         setError(error.message);
         console.log(error);
       } else if (data.user) {
-        setSuccess("Sign up successful! Please check your email for confirmation.");
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        const avatarUrl = `https://ui-avatars.com/api/?name=${firstName}%20${lastName}&background=${randomColor}&color=fff`;
+
+        const { data: insertData, error: insertError } = await supabase
+          .from("doctor")
+          .insert([
+            {
+              name: [firstName, lastName],
+              id: data.user.id,
+              pfp: avatarUrl,  
+              special: [],
+              reserv: [],
+              personal: {},          
+            },
+          ]);
+
+        if (insertError) {
+          setError("Failed to create doctor entry. Please try again.");
+          console.log(insertError);
+        } else {
+          setSuccess("Sign up successful! Please check your email for confirmation.");
+        }
       }
     } catch (err: any) {
       console.error(err);
@@ -46,7 +79,7 @@ const AuthForm: FC = () => {
   return (
     <div className="flex flex-col w-10/12 h-full items-center">
       <form onSubmit={handleSubmit} className="w-full flex flex-col">
-      <div className="flex flex-row justify-between w-full h-16">
+        <div className="flex flex-row justify-between w-full h-16">
           <div className="flex flex-col w-5/12 h-full">
             <span className="font-nue text-[1rem] underline ml-1 text-foreground/80">First Name</span>
             <input
