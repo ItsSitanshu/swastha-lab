@@ -1,8 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# स्वास्थ्य Lab
 
-## Getting Started
+## Problem Statement
 
-First, run the development server:
+Nepal, with its rapidly increasing population, faces a prominent risk on a daily basis: health. To be specific, the current healthcare system is fragmented into multiple parts, unable to be accessible together as a whole. Problems such as displacement of physical report files or diagnosis leave patients, along with their caregivers, as victims of decentralization of medicine. This poses a great threat to citizen health and well-being.
+
+
+## Solution Statement
+
+This project addresses that very issue by diligently providing a digital platform to not only centralize all medical records but also provide physiotherapy sessions when required, merged with telemedicine, all for your convenience. This app will offer:
+
+- **Secure, encrypted data protection**
+- **Centralized storage for medical records**
+- **Virtual consultations with doctors**
+- **Retrieval-augmented generation-based prescription and doctor consultation recall**
+- **Physiotherapy sessions via video or recordings**
+- **Medical imagery processing**
+- **Easy appointment scheduling and reminders**
+- **Medication tracking and reminders**
+- **Simple, accessible interface for all users**
+- **ML models for disease prediction**, including:
+  - Diabetes
+  - Asthma
+  - Lung Cancer
+  - Health watch data integration
+- **Health watch integration**
+
+## Contribute
 
 ```bash
 npm run dev
@@ -14,23 +37,38 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## The initial team
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<div style="text-decoration: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;">
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+<a href="https://github.com/ItsSitanshu" style="text-decoration: none;" target="_blank"><div style="border: 1px solid #ccc; border-radius: 8px; padding: 1rem; width: 150px; text-align: center;">
+  <img src="https://avatars.githubusercontent.com/u/88359842?v=4" alt="Sitanshu Shrestha" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 0.5rem;">
+  <h3>Sitanshu Shrestha</h3>
+  <p>Lead Developer</p>
+</div></a>
 
-## Learn More
+<a href="" target="_blank" style="text-decoration: none;"><div style="border: 1px solid #ccc; border-radius: 8px; padding: 1rem; width: 150px; text-align: center;">
+  <img src="https://i.imgur.com/2GYqEjj.png" alt="Sourya Udas" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 0.5rem;">
+  <h3>Sourya Udas</h3>
+  <p>IoT Engineer</p>
+</div></a>
 
-To learn more about Next.js, take a look at the following resources:
+<a href="https://github.com/ghPranja7l" style="text-decoration: none;" target="_blank"><div style="border: 1px solid #ccc; border-radius: 8px; padding: 1rem; width: 150px; text-align: center;">
+  <img src="https://avatars.githubusercontent.com/u/192446202?v=4" alt="Pranjal Panthi" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 0.5rem;">
+  <h3>Pranjal Panthi</h3>
+  <p>Frontend Developer</p>
+</div></a>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<a href="https://github.com/baruwalaashug" style="text-decoration: none;" target="_blank"><div style="border: 1px solid #ccc; border-radius: 8px; padding: 1rem; width: 150px; text-align: center;">
+  <img src="https://avatars.githubusercontent.com/u/186379150?v=4" alt="Aashug Baruwal" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 0.5rem;">
+  <h3>Aashug Baruwal</h3>
+  <p>Data Analyst</p>
+</div></a>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+<a hrfe="https://github.com/CodeXRajit" style="text-decoration: none;" target="_blank"><div style="border: 1px solid #ccc; border-radius: 8px; padding: 1rem; width: 150px; text-align: center;">
+  <img src="https://avatars.githubusercontent.com/u/191987274?v=4" alt="Rajit Acharya" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 0.5rem;">
+  <h3>Rajit Acharya</h3>
+  <p>Data Analyst</p>
+</div></a>
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+</div>
