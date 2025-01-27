@@ -28,9 +28,9 @@ const SloganRotator = () => {
   const [typedSlogan, setTypedSlogan] = useState<string>("");
   const [sloganIndex, setSloganIndex] = useState<number>(0);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
-  const typingSpeed = 100; // Typing speed
-  const deletingSpeed = 50; // Deleting speed
-  const changingSpeed = 1500; // Pause before deleting or switching slogans
+  const typingSpeed = 100; 
+  const deletingSpeed = 50;
+  const changingSpeed = 1500;
 
   useEffect(() => {
     let interval: any = 0;
@@ -48,7 +48,6 @@ const SloganRotator = () => {
         setSloganIndex((prevIndex) => (prevIndex + 1) % slogans.length);
       }
     } else {
-      // Typing effect
       if (typedSlogan.length < currentSlogan.length) {
         interval = setInterval(() => {
           setTypedSlogan((prev) => currentSlogan.slice(0, prev.length + 1));
