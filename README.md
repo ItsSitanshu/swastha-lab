@@ -39,7 +39,7 @@ bun dev
 
 ## The initial team
 
-<div style="text-decoration: none; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 1rem;">
+<div style="text-decoration: none; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 1rem; width: 100%;">
 
 <a href="https://github.com/ItsSitanshu" style="text-decoration: none;" target="_blank"><div style="border: 1px solid #ccc; border-radius: 8px; padding: 1rem; width: 150px; text-align: center;">
   <img src="https://avatars.githubusercontent.com/u/88359842?v=4" alt="Sitanshu Shrestha" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 0.5rem;">
