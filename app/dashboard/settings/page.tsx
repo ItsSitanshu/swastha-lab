@@ -169,6 +169,7 @@ export default function DashboardPatientPage() {
         alert(`Error saving changes: ${error.message || 'Unknown error'}`);
       } finally {
         fetchDoctor(user.id as string, supabase, setDoctor);
+        setPfpUrl("");
       }
   
     } 
@@ -203,7 +204,7 @@ export default function DashboardPatientPage() {
                         className="hidden w-full h-full"
                         onChange={handleFileChange} 
                       />
-                      <Image src={pfpUrl || doctor.pfp} 
+                      <Image src={pfpUrl} 
                         width={2000}
                         height={2000}
                         alt='?' 
