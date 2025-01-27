@@ -10,7 +10,7 @@ const supabase = createClientComponentClient();
 const SUB_PAGE_NAME: string = "Billing";
 
 export default function DashboardBillingPage() {
-  const [user, setUser ] = useState<any>();
+  const [user, setUser] = useState<any>();
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -18,7 +18,7 @@ export default function DashboardBillingPage() {
         const {
           data: { session },
         } = await supabase.auth.getSession();
-        setUser (session?.user ?? null);
+        setUser(session?.user ?? null);
       } catch (error: any) {
         console.error("Error fetching session:", error.message);
       }
@@ -28,7 +28,7 @@ export default function DashboardBillingPage() {
 
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (_event, session) => {
-        setUser (session?.user ?? null);
+        setUser(session?.user ?? null);
       }
     );
 
@@ -47,8 +47,16 @@ export default function DashboardBillingPage() {
             <div className="flex-1">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 text-black">
                 {[
-                  { title: "Revenue this month", amount: "$10,398", change: "+ $498" },
-                  { title: "Profit this month", amount: "$3,982", change: "+ $198" },
+                  {
+                    title: "Revenue this month",
+                    amount: "$10,398",
+                    change: "+ $498",
+                  },
+                  {
+                    title: "Profit this month",
+                    amount: "$3,982",
+                    change: "+ $198",
+                  },
                 ].map((item, index) => (
                   <div className="bg-white p-4 rounded-lg shadow" key={index}>
                     <div className="flex items-center justify-between mb-2">
@@ -66,7 +74,9 @@ export default function DashboardBillingPage() {
                     <button className="text-blue-500 border-b-2 border-blue-500 pb-2">
                       Bill
                     </button>
-                    <button className="text-gray-500 pb-2">Payment Received</button>
+                    <button className="text-gray-500 pb-2">
+                      Payment Received
+                    </button>
                   </div>
                   <div className="flex items-center space-x-4">
                     <input
@@ -92,7 +102,10 @@ export default function DashboardBillingPage() {
                           "PAYMENT",
                           "",
                         ].map((header, index) => (
-                          <th className="py-2 text-left px-4 border-b" key={index}>
+                          <th
+                            className="py-2 text-left px-4 border-b"
+                            key={index}
+                          >
                             {header}
                           </th>
                         ))}
@@ -121,7 +134,7 @@ export default function DashboardBillingPage() {
                       ].map((row, index) => (
                         <tr key={index}>
                           <td className="py-2 px-4 border-b">
-                            { row.id}{" "}
+                            {row.id}{" "}
                             <span className="bg-blue-100 text-blue-500 text-xs px-2 py-1 rounded">
                               NEW
                             </span>
