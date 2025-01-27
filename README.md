@@ -37,38 +37,10 @@ pnpm dev
 bun dev
 ```
 
-## The initial team
+## The Initial Team  
 
-<div style="text-decoration: none; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 1rem; width: 100%;">
-
-[<div style="border: 1px solid #ccc; border-radius: 8px; padding: 1rem; width: 150px; text-align: center;">
-  <img src="https://avatars.githubusercontent.com/u/88359842?v=4" alt="Sitanshu Shrestha" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 0.5rem;">
-  <h3>Sitanshu Shrestha</h3>
-  <p>Lead Developer</p>
-</div>](https://github.com/ItsSitanshu)
-
-<a href="" target="_blank" style="text-decoration: none;"><div style="border: 1px solid #ccc; border-radius: 8px; padding: 1rem; width: 150px; text-align: center;">
-  <img src="https://i.imgur.com/2GYqEjj.png" alt="Sourya Udas" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 0.5rem;">
-  <h3>Sourya Udas</h3>
-  <p>IoT Engineer</p>
-</div></a>
-
-<a href="https://github.com/ghPranja7l" style="text-decoration: none;" target="_blank"><div style="border: 1px solid #ccc; border-radius: 8px; padding: 1rem; width: 150px; text-align: center;">
-  <img src="https://avatars.githubusercontent.com/u/192446202?v=4" alt="Pranjal Panthi" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 0.5rem;">
-  <h3>Pranjal Panthi</h3>
-  <p>Frontend Developer</p>
-</div></a>
-
-<a href="https://github.com/baruwalaashug" style="text-decoration: none;" target="_blank"><div style="border: 1px solid #ccc; border-radius: 8px; padding: 1rem; width: 150px; text-align: center;">
-  <img src="https://avatars.githubusercontent.com/u/186379150?v=4" alt="Aashug Baruwal" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 0.5rem;">
-  <h3>Aashug Baruwal</h3>
-  <p>Data Analyst</p>
-</div></a>
-
-<a hrfe="https://github.com/CodeXRajit" style="text-decoration: none;" target="_blank"><div style="border: 1px solid #ccc; border-radius: 8px; padding: 1rem; width: 150px; text-align: center;">
-  <img src="https://avatars.githubusercontent.com/u/191987274?v=4" alt="Rajit Acharya" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 0.5rem;">
-  <h3>Rajit Acharya</h3>
-  <p>Data Analyst</p>
-</div></a>
-
-</div>
+**[Sitanshu Shrestha](https://github.com/ItsSitanshu)** - Lead Developer  
+**[Sourya Udas]()** - IoT Engineer  
+**[Pranjal Panthi](https://github.com/ghPranja7l)** - Frontend Developer  
+**[Aashug Baruwal](https://github.com/baruwalaashug)** - Data Analyst  
+**[Rajit Acharya](https://github.com/CodeXRajit)** - Data Analyst  
