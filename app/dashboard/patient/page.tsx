@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import DashboardSidebar from "@/app/components/SideBar";
+import Sidebar from "@/app/components/Sidebar";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import PatientTab from "@/app/components/PatientTab";
 import Navbar from "@/app/components/Navbar";
@@ -53,7 +53,7 @@ export default function DashboardPatientPage() {
     <>
       {user ? (
         <>
-          <DashboardSidebar currentPage={SUB_PAGE_NAME} />
+          <Sidebar currentPage={SUB_PAGE_NAME} />
           <div className="ml-64 flex flex-row bg-background font-jksans">
             <div className="flex-1 p-6">
               <Navbar user={user} page={SUB_PAGE_NAME} />

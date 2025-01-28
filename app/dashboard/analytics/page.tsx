@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import DashboardSidebar from "@/app/components/SideBar";
+import Sidebar from "@/app/components/Sidebar";
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 const supabase = createClientComponentClient();
@@ -40,7 +40,7 @@ export default function DashboardPatientPage() {
     <>
       {user ? (
         <div className="flex h-screen bg-background font-jksans">
-          <DashboardSidebar currentPage="Patient"/>
+          <Sidebar currentPage="Patient"/>
           <div className="flex-1 p-6">
             <div className="flex justify-between items-center mb-6">
               <div className="flex items-center">
