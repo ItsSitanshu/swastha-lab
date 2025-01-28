@@ -18,7 +18,12 @@ const colors = [
   "9E9D24", // Lime
 ];
 
-const hospitalList = ["KIST Hospital", "Norvic Hospital", "Bir Hospital", "Grande International Hospital"];
+const hospitalList = [
+  "KIST Hospital",
+  "Norvic Hospital",
+  "Bir Hospital",
+  "Grande International Hospital",
+];
 
 export default function DoctorAuth() {
   const [isLogin, setIsLogin] = useState<boolean>(false);
@@ -26,7 +31,9 @@ export default function DoctorAuth() {
   const [lastName, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [primaryHospital, setPrimaryHospital] = useState<string>(hospitalList[0]);
+  const [primaryHospital, setPrimaryHospital] = useState<string>(
+    hospitalList[0]
+  );
 
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -54,21 +61,25 @@ export default function DoctorAuth() {
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
         const avatarUrl = `https://ui-avatars.com/api/?name=${firstName}%20${lastName}&background=${randomColor}&color=fff`;
 
-        const { data: insertData, error: insertError } = await supabase.from("doctor").insert([
-          {
-            name: [firstName, lastName],
-            id: data.user.id,
-            pfp: avatarUrl,
-            special: [],
-            reserv: [],
-            personal: { primaryHospital },
-          },
-        ]);
+        const { data: insertData, error: insertError } = await supabase
+          .from("doctor")
+          .insert([
+            {
+              name: [firstName, lastName],
+              id: data.user.id,
+              pfp: avatarUrl,
+              special: [],
+              reserv: [],
+              personal: { primaryHospital },
+            },
+          ]);
 
         if (insertError) {
           setError("Failed to create doctor entry. Please try again.");
         } else {
-          setSuccess("Sign up successful! Please check your email for confirmation.");
+          setSuccess(
+            "Sign up successful! Please check your email for confirmation."
+          );
         }
       }
     } catch (err: any) {
@@ -89,7 +100,9 @@ export default function DoctorAuth() {
       });
 
       if (error) {
-        setError(error.message.charAt(0).toUpperCase() + error.message.slice(1));
+        setError(
+          error.message.charAt(0).toUpperCase() + error.message.slice(1)
+        );
       } else if (data.user) {
         setSuccess("Sign in successful!");
         router.push("/");
@@ -103,15 +116,22 @@ export default function DoctorAuth() {
   return (
     <div className="flex items-center justify-center h-screen bg-background">
       <div className="bg-background border border-foreground p-8 rounded-xl shadow-md w-full max-w-md">
-        <form onSubmit={isLogin ? handleLogin : handleRegister} className="flex flex-col">
+        <form
+          onSubmit={isLogin ? handleLogin : handleRegister}
+          className="flex flex-col"
+        >
           <h2 className="text-2xl font-bold mb-4 text-center">
-            {isLogin ? "Login to Your Account" : "Register as an Official Doctor"}
+            {isLogin
+              ? "Login to Your Account"
+              : "Register as an Official Doctor"}
           </h2>
 
           {!isLogin && (
             <>
               <div className="mb-4">
-                <label className="block text-sm font-medium mb-1">First Name</label>
+                <label className="block text-sm font-medium mb-1">
+                  First Name
+                </label>
                 <input
                   type="text"
                   placeholder="e.g. Hari"
@@ -122,7 +142,9 @@ export default function DoctorAuth() {
               </div>
 
               <div className="mb-4">
-                <label className="block text-sm font-medium mb-1">Last Name</label>
+                <label className="block text-sm font-medium mb-1">
+                  Last Name
+                </label>
                 <input
                   type="text"
                   placeholder="e.g. Acharya"
@@ -133,7 +155,9 @@ export default function DoctorAuth() {
               </div>
 
               <div className="mb-4">
-                <label className="block text-sm font-medium mb-1">Primary Hospital</label>
+                <label className="block text-sm font-medium mb-1">
+                  Primary Hospital
+                </label>
                 <select
                   className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-mod"
                   value={primaryHospital}

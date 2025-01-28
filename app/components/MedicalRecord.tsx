@@ -1,13 +1,11 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 
-
-const MedicalRecord: React.FC  = () => {
-
+const MedicalRecord: React.FC = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      { /* First Section */}
+      {/* First Section */}
       <div className="bg-gray-50 p-6 rounded-lg shadow">
         <h3 className="text-lg font-semibold mb-4 text-black">Diagnosis</h3>
         <div className="mb-4">
@@ -55,7 +53,7 @@ const MedicalRecord: React.FC  = () => {
         </div>
       </div>
 
-      { /* Second Section */}
+      {/* Second Section */}
       <div className="bg-gray-50 p-6 rounded-lg shadow">
         <h3 className="text-lg font-semibold mb-4 text-black">Diagnosis</h3>
         <div className="mb-4">
@@ -103,7 +101,7 @@ const MedicalRecord: React.FC  = () => {
         </div>
       </div>
 
-      { /* Third Section */}
+      {/* Third Section */}
       <div className="bg-gray-50 p-6 rounded-lg shadow">
         <h3 className="text-lg font-semibold mb-4 text-black">Diagnosis</h3>
         <div className="mb-4">
@@ -151,7 +149,7 @@ const MedicalRecord: React.FC  = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default MedicalRecord;
