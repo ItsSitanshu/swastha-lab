@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 // Supabase client initialization
@@ -76,15 +76,15 @@ const PatientInformation: React.FC<{
       setLoading(true);
       try {
         const { data, error } = await supabase
-          .from('medications')
-          .select('id, name, mrp, desc');
-        
+          .from("medications")
+          .select("id, name, mrp, desc");
+
         if (error) throw error;
         
         setAllMedications(data || []);
         setMedications(data || []); 
       } catch (error) {
-        console.error('Error fetching medications:', error);
+        console.error("Error fetching medications:", error);
       } finally {
         setLoading(false);
       }
@@ -160,7 +160,9 @@ const PatientInformation: React.FC<{
                   hover:bg-foreground-10`}
                 onClick={() => handleSelectMedication(med)}
               >
-                <p className="text-foreground-100 font-normal">{med.name} - Rs. {med.mrp}</p>
+                <p className="text-foreground-100 font-normal">
+                  {med.name} - Rs. {med.mrp}
+                </p>
                 <p className="text-foreground-70 text-sm">{med.desc}</p>
               </li>
             ))}
