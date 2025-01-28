@@ -52,6 +52,7 @@ export default function DashboardPatientPage() {
     if (!selectedFile) return;
   
     const filePath = `doctors/${user.id}`;
+
   
     try {
       const { data: uploadData, error } = await supabase.storage
@@ -61,7 +62,9 @@ export default function DashboardPatientPage() {
       if (error) {
         throw error;
       }
-  
+
+      console.log("data", uploadData);
+
       const { data: publicUrlData } = supabase.storage
         .from('doctors')
         .getPublicUrl(filePath);
@@ -128,7 +131,7 @@ export default function DashboardPatientPage() {
       return;
     }
     
-    let URL: string | undefined = "";
+    let URL: string = "";
 
     if (data && data.length > 0) {  
       if (selectedFile) {
@@ -151,12 +154,15 @@ export default function DashboardPatientPage() {
         reserv: doctor.reserv,
         personal: doctor.personal,      
       };
+
+
+      console.log(updates);
   
       try {
         const { data: updatedData, error: updateError } = await supabase
           .from('doctor')
           .update(updates)  
-          .eq('id', user.id); 
+          .eq('id', doctor.id); 
   
         if (updateError) {
           throw updateError;

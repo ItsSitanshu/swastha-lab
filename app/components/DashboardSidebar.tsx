@@ -26,7 +26,7 @@ const SidebarItems = [
     icon: dashboardIcon,
     Aicon: AdashboardIcon,
     text: "Dashboard",
-    href: "/dashboard/dashboard",
+    href: "/dashboard/",
   },
   {
     icon: patientIcon,
