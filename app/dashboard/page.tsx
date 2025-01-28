@@ -250,7 +250,6 @@ const DashboardPatientPage = () => {
                   </div>
                 </div>
               </div>
-              {/* END OF MAIN BODY */}
             </div>
           </div>
         </>

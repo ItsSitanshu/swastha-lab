@@ -21,8 +21,8 @@ const LandingPage = () => {
         </nav>
         <div className="space-x-4">
           <a
-            className="px-4 py-2 bg-mod text-white rounded-full hover:bg-dark transition "
-            href="#"
+            className="px-4 py-2 bg-mod text-white rounded-full hover:bg-dark transition-all ease-in-out duration-500"
+            href=""
           >
             Log in
           </a>
@@ -41,7 +41,7 @@ const LandingPage = () => {
           aspernatur repellendus eum aperiam. Officia, temporibus!
         </p>
         <a
-          className="px-6 py-3 bg-mod text-white rounded-full hover:bg-mod transition-all ease-in-out duration-500"
+          className="px-6 py-3 bg-mod text-white rounded-full hover:bg-dark transition-all ease-in-out duration-500"
           href="#"
         >
           Get started
