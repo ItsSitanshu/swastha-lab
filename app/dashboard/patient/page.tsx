@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import DashboardSidebar from "@/app/components/DashboardSidebar";
+import DashboardSidebar from "@/app/components/SideBar";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import PatientTab from "@/app/components/PatientTab";
 import Navbar from "@/app/components/Navbar";

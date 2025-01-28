@@ -60,19 +60,19 @@ const SidebarItems = [
   },
 ];
 
-interface DashboardSidebarOptions {
+interface SidebarOptions {
   currentPage: string;
 }
 
-const DashboardSidebar: React.FC<DashboardSidebarOptions> = ({
-  currentPage,
-}) => {
+const Sidebar: React.FC<SidebarOptions> = ({ currentPage }) => {
   return (
     <div className="fixed top-0 left-0 w-64 h-screen bg-background p-6 border-r border-foreground/50 flex flex-col justify-between overflow-y-auto">
       <div>
         <div className="flex items-center mb-8">
           <img alt="Logo" className="w-10 h-10 mr-3" src="/logo.svg" />
-          <span className="text-xl font-semibold text-foreground">Swastha Lab</span>
+          <span className="text-xl font-semibold text-foreground">
+            Swastha Lab
+          </span>
         </div>
 
         <nav>
@@ -116,4 +116,4 @@ const DashboardSidebar: React.FC<DashboardSidebarOptions> = ({
   );
 };
 
-export default DashboardSidebar;
+export default Sidebar;
