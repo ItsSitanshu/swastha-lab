@@ -102,10 +102,10 @@ export default function DashboardPatientPage() {
                               className="w-8 h-8 rounded-full mr-2"
                               src=""
                             />
-                            Aayan Maskey
+                            Aashug Baruwal
                           </td>
                           <td className="py-2">(+977) 9841732560</td>
-                          <td className="py-2">maskeyaayan08@gmail.com</td>
+                          <td className="py-2">spider16man10@gmail.com</td>
                           <td className="py-2">534 Victoria Trail</td>
                           <td className="py-2">Mar 12, 2021</td>
                           <td className="py-2">03 May 2021</td>
