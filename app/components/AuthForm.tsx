@@ -51,15 +51,15 @@ const AuthForm: FC = () => {
         const avatarUrl = `https://ui-avatars.com/api/?name=${firstName}%20${lastName}&background=${randomColor}&color=fff`;
 
         const { data: insertData, error: insertError } = await supabase
-          .from("doctor")
+          .from("patients")
           .insert([
             {
               name: [firstName, lastName],
               id: data.user.id,
               pfp: avatarUrl,  
-              special: [],
+              personal: {},
               reserv: [],
-              personal: {},          
+              doctors: []
             },
           ]);
 

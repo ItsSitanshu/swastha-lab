@@ -62,7 +62,7 @@ export default function DashboardPatientPage() {
                   <div className="bg-white p-4 rounded-md shadow-md">
                     <table className="w-full text-left">
                       <thead>
-                        <tr className="text-gray-500">
+                        <tr className="font-jksans text-lg text-foreground/80">
                           <th className="py-2">PATIENT NAME</th>
                           <th className="py-2">PHONE</th>
                           <th className="py-2">EMAIL</th>
