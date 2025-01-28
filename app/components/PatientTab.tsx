@@ -2,20 +2,19 @@ import React from 'react';
 
 interface PatientCardProps {
   user: any;
+  patient: any;
   currentSubPage: number;
   setCurrentSubPage: (value: number) => void;
 }
 
-const PatientTab: React.FC<PatientCardProps> = ({ user, currentSubPage, setCurrentSubPage }) => {
+const PatientTab: React.FC<PatientCardProps> = ({ user, patient, currentSubPage, setCurrentSubPage }) => {
   const getRandomColor = () => {
     const colors = ["4285F4", "EA4335", "FBBC05", "34A853"];
     return colors[Math.floor(Math.random() * colors.length)];
   };
 
-  const userName = "Sample Patient";
-  const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(
-    userName
-  )}&background=${getRandomColor()}&color=fff`;
+  const userName = patient.name;
+  const avatarUrl = patient.pfp;
 
   const linkStyles = (index: number) =>
     currentSubPage === index
@@ -35,7 +34,6 @@ const PatientTab: React.FC<PatientCardProps> = ({ user, currentSubPage, setCurre
         />
         <div className="flex-grow">
           <h2 className="text-lg md:text-xl font-semibold text-foreground">{userName}</h2>
-          <div className="text-foreground/50">hello</div>
         </div>
       </div>
       <div className="border-b border-foreground/10 mb-6">

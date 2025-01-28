@@ -3,37 +3,50 @@
 import React, { useState, useEffect } from 'react';
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
+// Supabase client initialization
 const supabase = createClientComponentClient();
 
+interface Medication {
+  id: number;
+  name: string;
+  mrp: string;
+  desc: string;
+}
 
 interface ExternalReferenceProps {
   onSelectReference: (referenceType: string) => void;
+  setShowReferenceModal: (x: boolean) => void;
 }
 
-const ExternalReferenceTemplate: React.FC<ExternalReferenceProps> = ({ onSelectReference }) => {
+interface Test {
+  testType: string;
+  testName: string;
+}
+
+const ExternalReferenceTemplate: React.FC<ExternalReferenceProps> = ({ onSelectReference, setShowReferenceModal }) => {
   return (
-    <div className="col-span-3 border-b border-background-20">
+    <div className="col-span-2 border-b border-background-20">
       <button
-        onClick={() => onSelectReference('X-Ray')}
-        className="p-4 mt-4 w-full rounded-lg bg-mod text-light border border-background-20"
+        onClick={() => { onSelectReference('X-Ray'); setShowReferenceModal(true) }}
+        className="p-4 w-full rounded-lg font-bold text-foreground border border-foreground-20 hover:bg-foreground-100 hover:text-background-100"
       >
         X-Ray
       </button>
       <button
-        onClick={() => onSelectReference('CT Scan')}
-        className="p-4 mt-4 w-full rounded-lg bg-mod text-light border border-background-20"
+        onClick={() => { onSelectReference('CT Scan'); setShowReferenceModal(true) }}
+        className="p-4 mt-4 w-full rounded-lg font-bold text-foreground border border-foreground-20 hover:bg-foreground-100 hover:text-background-100"
       >
         CT Scan
       </button>
       <button
-        onClick={() => onSelectReference('ECG')}
-        className="p-4 mt-4 w-full rounded-lg bg-mod text-light border border-background-20"
+        onClick={() => { onSelectReference('ECG'); setShowReferenceModal(true) }}
+        className="p-4 mt-4 w-full rounded-lg font-bold text-foreground border border-foreground-20 hover:bg-foreground-100 hover:text-background-100"
       >
         ECG
       </button>
       <button
-        onClick={() => onSelectReference('MRI')}
-        className="p-4 mt-4 w-full rounded-lg bg-mod text-light border border-background-20"
+        onClick={() => { onSelectReference('MRI'); setShowReferenceModal(true) }}
+        className="p-4 mt-4 w-full rounded-lg font-bold text-foreground border border-foreground-20 hover:bg-foreground-100 hover:text-background-100"
       >
         MRI
       </button>
@@ -41,24 +54,23 @@ const ExternalReferenceTemplate: React.FC<ExternalReferenceProps> = ({ onSelectR
   );
 };
 
-
-const PatientInformation: React.FC = () => {
-  const [medications, setMedications] = useState<any>([]);
-  const [allMedications, setAllMedications] = useState<any>([]);
+const PatientInformation: React.FC<{
+  patient: any;
+}> = ({ patient }) => {
+  const [medications, setMedications] = useState<Medication[]>([]);
+  const [allMedications, setAllMedications] = useState<Medication[]>([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const [newMedName, setNewMedName] = useState('');
   const [newMedMrp, setNewMedMrp] = useState('');
   const [newMedDesc, setNewMedDesc] = useState('');
-  const [externalReference, setExternalReference] = useState('');
-  const [showAddMedicationModal, setShowAddMedicationModal] = useState(false);
   const [selectedReferenceType, setSelectedReferenceType] = useState<string | null>(null);
-  const [selectedObservation, setSelectedObservation] = useState<string | null>(null);
-  const [selectedMedications, setSelectedMedications] = useState<any>([]);
+  const [selectedTest, setSelectedTest] = useState<string | null>(null);
+  const [selectedMedications, setSelectedMedications] = useState<Medication[]>([]);
+  const [selectedTests, setSelectedTests] = useState<Test[]>([]);
   const [showReferenceModal, setShowReferenceModal] = useState(false);
-  const [xrayRegion, setXrayRegion] = useState('');
-  const [xrayType, setXrayType] = useState('');
 
+  // Fetch medications
   useEffect(() => {
     const fetchMedications = async () => {
       setLoading(true);
@@ -69,8 +81,8 @@ const PatientInformation: React.FC = () => {
         
         if (error) throw error;
         
-        setAllMedications(data);
-        setMedications(data); 
+        setAllMedications(data || []);
+        setMedications(data || []); 
       } catch (error) {
         console.error('Error fetching medications:', error);
       } finally {
@@ -81,79 +93,50 @@ const PatientInformation: React.FC = () => {
     fetchMedications();
   }, []);
 
+  // Medication search filter
   useEffect(() => {
     if (!search.trim()) {
       setMedications(allMedications);
       return;
     }
 
-    const filteredMedications = allMedications.filter((med: any) =>
+    const filteredMedications = allMedications.filter((med: Medication) =>
       med.name.toLowerCase().includes(search.toLowerCase()) || 
       med.desc.toLowerCase().includes(search.toLowerCase())
     );
     setMedications(filteredMedications);
   }, [search, allMedications]);
 
-  const handleAddMedication = async () => {
-    if (!newMedName || !newMedMrp || !newMedDesc) {
-      alert('Please fill out all fields');
-      return;
+  const handleSelectMedication = (medication: Medication) => {
+    if (!selectedMedications.some((med) => med.id === medication.id)) {
+      setSelectedMedications((prev) => [...prev, medication]);
     }
-
-    try {
-      const { data, error } = await supabase
-        .from('medications')
-        .insert([
-          { name: newMedName, mrp: newMedMrp, desc: newMedDesc }
-        ]);
-      
-      if (error) throw error;
-
-      setAllMedications((prevMedications: any) => [
-        ...prevMedications,
-        ...(data || []), 
-      ]);
-      
-      setMedications((prevMedications: any) => [
-        ...prevMedications,
-        ...(data || []),
-      ]);
-      
-      setNewMedName('');
-      setNewMedMrp('');
-      setNewMedDesc('');
-      setShowAddMedicationModal(false);
-      alert('Medication added successfully!');
-    } catch (error) {
-      console.error('Error adding medication:', error);
-    }
-  };
-
-  const handleSelectMedication = (medication: any) => {
-    setSelectedMedications((prev: any) => [...prev, medication]);
   };
 
   const handleRemoveMedication = (id: number) => {
-    setSelectedMedications((prev: any) => prev.filter((med: any) => med.id !== id));
+    setSelectedMedications((prev) => prev.filter((med) => med.id !== id));
   };
 
-  const observations: any = {
-    'X-Ray': ['Normal', 'Mild Deformity', 'Fracture', 'Dislocation', 'Infection'],
-    'CT Scan': ['Normal', 'Tumor', 'Cyst', 'Hemorrhage', 'Infection'],
-    'ECG': ['Normal', 'Arrhythmia', 'Bradycardia', 'Tachycardia', 'Heart Attack'],
-    'MRI': ['Normal', 'Herniated Disc', 'Tumor', 'Arthritis', 'Spinal Stenosis']
+  const tests: { [key: string]: string[] } = {
+    'X-Ray': ['Lateral Chest Scan', 'Lateral Spine Scan', 'Abdomen Scan'],
+    'CT Scan': ['Brain Scan', 'Abdomen Scan', 'Chest Scan', 'Spine Scan'],
+    'ECG': ['Resting ECG', 'Exercise ECG'],
+    'MRI': ['Brain MRI', 'Spine MRI', 'Knee MRI', 'Abdomen MRI']
   };
 
-  const handleAddReference = () => {
-    alert(`Reference Type: ${selectedReferenceType}, Observation: ${selectedObservation}`);
-    setShowReferenceModal(false); // Close modal after saving
+  const handleAddTest = () => {
+    if (selectedTest && selectedReferenceType) {
+      setSelectedTests((prevTests) => [
+        ...prevTests, 
+        { testType: selectedReferenceType, testName: selectedTest }
+      ]);
+      setShowReferenceModal(false); 
+    }
   };
-
 
   return (
     <div className="p-8 grid grid-cols-12 gap-8">
-      {/* Diagnosis and Observation Textareas */}
-      <div className="col-span-3 h-full flex flex-col gap-6 border-b border-background-20">
+      <div className="col-span-4 h-full flex flex-col gap-6 border-b border-background-20">
         <textarea className="p-4 rounded-lg bg-background-80 text-foreground-100 border border-foreground-20 focus:outline-none focus:border-mod" placeholder="Diagnosis" style={{ height: '200px' }}></textarea>
         <textarea className="p-4 rounded-lg bg-background-80 text-foreground-100 border border-foreground-20 focus:outline-none focus:border-mod" placeholder="Observation" style={{ height: '200px' }}></textarea>
       </div>
@@ -170,10 +153,11 @@ const PatientInformation: React.FC = () => {
           <p className="text-foreground-50">Loading...</p>
         ) : (
           <ul className="bg-background-60 rounded-lg border border-background-20">
-            {medications.slice(0, 3).map((med: any, i: number) => (
+            {medications.slice(0, 3).map((med: Medication, i: number) => (
               <li 
                 key={med.id} 
-                className={`p-3 border-b border-x border-foreground-20 cursor-pointer ${i == 2 && 'rounded-b-xl'}`}
+                className={`p-3 border-b border-x border-foreground-20 cursor-pointer ${i === 2 && 'rounded-b-xl'}
+                  hover:bg-foreground-10`}
                 onClick={() => handleSelectMedication(med)}
               >
                 <p className="text-foreground-100 font-normal">{med.name} - Rs. {med.mrp}</p>
@@ -182,43 +166,69 @@ const PatientInformation: React.FC = () => {
             ))}
           </ul>
         )}
-      </div>
-        
-      <ExternalReferenceTemplate onSelectReference={setSelectedReferenceType} />
 
+      <div>
+        <div className="bg-background-70 rounded-lg p-4">
+          <h4 className="text-foreground-100 text-lg">Selected Medications:</h4>
+          <ul className="">
+            {selectedMedications.map((med: Medication) => (
+              <li key={med.id} className="flex justify-between items-center hover">
+                <span>{med.name}</span>
+                <button
+                  onClick={() => handleRemoveMedication(med.id)}
+                  className="text-mod hover:text-mod-dark px-3 aspect-square hover:bg-foreground-100 font-bold rounded-full transitition-all duration-300"
+                >
+                  x
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      </div>
+
+      <div className="flex flex-col col-span-2">
+        <ExternalReferenceTemplate onSelectReference={setSelectedReferenceType} setShowReferenceModal={setShowReferenceModal} />
+        <div>
+          <h4 className="text-foreground-100 text-lg mt-6">Prescribed Tests:</h4>
+          <ul className="mt-2">
+            {selectedTests.map((test: Test, index: number) => (
+              <li key={index} className="flex justify-between items-center mb-2">
+                <span>{test.testType} - {test.testName}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
       {showReferenceModal && selectedReferenceType && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-          <div className="bg-background-60 p-6 rounded-lg w-96">
-            <h3 className="text-foreground-100 font-semibold">Add {selectedReferenceType} Observation</h3>
-            
-            {/* Observation Selection */}
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-90">
+          <div className="bg-background-100 p-6 rounded-lg w-96">
+            <h3 className="text-foreground-100 font-semibold">Add {selectedReferenceType} Test</h3>
             <div className="mt-4">
-              <label className="block text-foreground-90">Select Observation</label>
+              <label className="block text-foreground-90">Select Test</label>
               <select
-                value={selectedObservation || ''}
-                onChange={(e) => setSelectedObservation(e.target.value)}
+                value={selectedTest || ''}
+                onChange={(e) => setSelectedTest(e.target.value)}
                 className="w-full p-3 rounded-lg bg-background-70 text-foreground-90 border border-background-20 mb-4"
               >
-                <option value="">Select Observation</option>
-                {observations[selectedReferenceType]?.map((obs: any, index: any) => (
-                  <option key={index} value={obs}>
-                    {obs}
+                {tests[selectedReferenceType]?.map((test, index) => (
+                  <option key={index} value={test}>
+                    {test}
                   </option>
                 ))}
               </select>
             </div>
 
-            {/* Action Buttons */}
             <div className="flex justify-between mt-4">
               <button
-                onClick={handleAddReference}
-                className="w-1/2 p-3 bg-mod text-light rounded-lg"
+                onClick={handleAddTest}
+                className="p-4 mt-4 w-2/4 rounded-lg font-bold text-foreground border border-foreground-20 hover:bg-foreground-100 hover:text-background-100"
               >
-                Save Reference
+                Prescribe Test
               </button>
               <button
                 onClick={() => setShowReferenceModal(false)}
-                className="w-1/2 p-3 bg-gray-500 text-light rounded-lg"
+                className="p-4 mt-4 w-1/4 rounded-lg font-bold text-foreground border border-foreground-20 hover:bg-foreground-100 hover:text-background-100"
               >
                 Cancel
               </button>
@@ -227,71 +237,9 @@ const PatientInformation: React.FC = () => {
         </div>
       )}
 
-      <div className="col-span-3 bg-background-50 p-6 rounded-lg border border-background-20">
-        <h3 className="text-foreground-100 font-semibold">Patient Information</h3>
-        <p className="text-foreground-80">Name: John Doe</p>
-        <p className="text-foreground-80">Age: 35</p>
-        <p className="text-foreground-80">Gender: Male</p>
-        <p className="text-foreground-80">Contact: +977-123456789</p>
-        <p className="text-foreground-80">Blood Type: O+</p>
-        <p className="text-foreground-80">Allergies: None</p>
-        <p className="text-foreground-80">Previous Conditions: Hypertension</p>
-      </div>
 
-      <div className="col-span-3 bg-background-50 p-6 rounded-lg border border-background-20 mt-8">
-        <h3 className="text-foreground-100 font-semibold">Selected Medications</h3>
-        <ul>
-          {selectedMedications.map((med: any) => (
-            <li key={med.id} className="p-2 border-b border-background-20 flex justify-between">
-              <p className="text-foreground-100 font-semibold">{med.name}</p>
-              <button
-                onClick={() => handleRemoveMedication(med.id)}
-                className="text-red-500 cursor-pointer"
-              >
-                Remove
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
 
-      {showReferenceModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-          <div className="bg-background-60 p-6 rounded-lg w-96">
-            <h3 className="text-foreground-100 font-semibold">Add External Reference</h3>
-            <div className="mt-4">
-              <input
-                type="text"
-                value={xrayRegion}
-                onChange={(e) => setXrayRegion(e.target.value)}
-                className="w-full p-3 rounded-lg bg-background-70 text-foreground-90 border border-background-20 mb-4"
-                placeholder="Region (e.g., Chest)"
-              />
-              <input
-                type="text"
-                value={xrayType}
-                onChange={(e) => setXrayType(e.target.value)}
-                className="w-full p-3 rounded-lg bg-background-70 text-foreground-90 border border-background-20 mb-4"
-                placeholder="Type (e.g., X-Ray, CT, MRI)"
-              />
-            </div>
-            <div className="flex justify-between mt-4">
-              <button
-                onClick={handleAddReference}
-                className="w-1/2 p-3 bg-mod text-light rounded-lg"
-              >
-                Save Reference
-              </button>
-              <button
-                onClick={() => setShowReferenceModal(false)}
-                className="w-1/2 p-3 bg-gray-500 text-light rounded-lg"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+
     </div>
   );
 };
