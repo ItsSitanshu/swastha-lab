@@ -1,10 +1,8 @@
 import { FC, useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 const supabase = createClientComponentClient();
-
 
 const colors = [
   "34A853", // Green
@@ -22,7 +20,6 @@ const AuthForm: FC = () => {
   const [lastName, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
@@ -33,9 +30,46 @@ const AuthForm: FC = () => {
     setSuccess(null);
 
     try {
-      const username = `${firstName} ${lastName}`;
-      
-      const { data, error } = await supabase.auth.signUp({
+      const username = `${firstName} ${lastName}`.trim();
+
+      const { data: existingDoctor, error: doctorCheckError } = await supabase
+      .from("doctor")
+      .select("*")
+      .eq("email", email)
+      .single();
+
+
+      console.log(existingDoctor, "email", email)
+
+      if (existingDoctor) {
+        setError("This email is already registered as a doctor. Please log in.");
+        return;
+      }
+
+      if (doctorCheckError && doctorCheckError.code !== "PGRST116") {
+        console.error("Error checking doctor:", doctorCheckError);
+        setError("An error occurred while verifying your details. Please try again.");
+        return;
+      }
+
+      const { data: existingPatient, error: patientCheckError } = await supabase
+        .from("patients")
+        .select("*")
+        .eq("email", email)
+        .single();
+
+      if (existingPatient) {
+        setError("This email is already registered as a patient. Please log in.");
+        return;
+      }
+
+      if (patientCheckError && patientCheckError.code !== "PGRST116") {
+        console.error("Error checking patient:", patientCheckError);
+        setError("An error occurred while verifying your details. Please try again.");
+        return;
+      }
+
+      const { data: authData, error: authError } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -43,35 +77,38 @@ const AuthForm: FC = () => {
         },
       });
 
-      if (error) {
-        setError(error.message);
-        console.log(error);
-      } else if (data.user) {
+      if (authError) {
+        setError(authError.message);
+        console.error(authError);
+        return;
+      }
+
+      if (authData.user) {
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
         const avatarUrl = `https://ui-avatars.com/api/?name=${firstName}%20${lastName}&background=${randomColor}&color=fff`;
 
-        const { data: insertData, error: insertError } = await supabase
-          .from("patients")
-          .insert([
-            {
-              name: [firstName, lastName],
-              id: data.user.id,
-              pfp: avatarUrl,  
-              personal: {},
-              reserv: [],
-              doctors: []
-            },
-          ]);
+        const { error: insertError } = await supabase.from("patients").insert([
+          {
+            name: `${firstName} ${lastName}`,
+            email: email,
+            id: authData.user.id,
+            pfp: avatarUrl,
+            personal: {}, // Assuming you want an empty object for now
+            reserv: [],
+            doctors: [],
+          },
+        ]);
 
         if (insertError) {
-          setError("Failed to create doctor entry. Please try again.");
-          console.log(insertError);
-        } else {
-          setSuccess("Sign up successful! Please check your email for confirmation.");
+          console.error("Error inserting patient:", insertError);
+          setError("Failed to create patient entry. Please try again.");
+          return;
         }
+
+        setSuccess("Sign up successful! Please check your email for confirmation.");
       }
-    } catch (err: any) {
-      console.error(err);
+    } catch (err) {
+      console.error("Unexpected error:", err);
       setError("An unexpected error occurred. Please try again.");
     }
   };
@@ -132,16 +169,16 @@ const AuthForm: FC = () => {
         </div>
 
         {error ? (
-          <p className="text-light text-[0.7em] font-jksans mt-2">{error}</p>
+          <p className="text-red-500 text-[0.7em] font-jksans">{error}</p>
         ) : success ? (
-          <p className="text-green-500 text-[0.7em] font-jksans mt-2">{success}</p>
+          <p className="text-green-500 text-[0.7em] font-jksans">{success}</p>
         ) : (
           <p>&#8239;</p>
         )}
 
         <button
           type="submit"
-          className="border-2 border-foreground hover:cursor-pointer hover:bg-foreground hover:text-background transition duration-300 ease-in-out flex flex-col items-center justify-center w-full h-12 rounded-xl mt-2 bg-foreground/90 font-jksans text-lg text-foreground font-bold"
+          className="border-2 border-foreground hover:cursor-pointer hover:bg-foreground-100 hover:text-background-100 transition duration-300 ease-in-out flex flex-col items-center justify-center w-full h-12 rounded-xl mt-2 bg-foreground/90 font-jksans text-lg text-foreground font-bold"
         >
           REGISTER
         </button>

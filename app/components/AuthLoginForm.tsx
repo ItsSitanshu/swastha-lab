@@ -84,7 +84,7 @@ const AuthLoginForm: FC = () => {
 
         <button
           type="submit"
-          className="border-2 border-foreground hover:cursor-pointer hover:bg-foreground hover:text-background transition duration-300 ease-in-out flex flex-col items-center justify-center w-full h-12 rounded-xl mt-2 bg-foreground/90 font-jksans text-lg text-foreground font-bold"
+          className="border-2 border-foreground hover:cursor-pointer hover:bg-foreground-100 hover:text-background-100 transition duration-300 ease-in-out flex flex-col items-center justify-center w-full h-12 rounded-xl mt-2 bg-foreground/90 font-jksans text-lg text-foreground font-bold"
         >
           LOGIN
         </button>

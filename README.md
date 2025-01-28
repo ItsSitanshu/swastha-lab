@@ -43,4 +43,10 @@ bun dev
 **[Sourya Udas]()** - IoT Engineer  
 **[Pranjal Panthi](https://github.com/ghPranja7l)** - Frontend Developer  
 **[Aashug Baruwal](https://github.com/baruwalaashug)** - Data Analyst  
-**[Rajit Acharya](https://github.com/CodeXRajit)** - Data Analyst  
+**[Rajit Acharya](https://github.com/CodeXRajit)** - Data Analyst / Lead Presenter  
+
+## Architecture
+
+We opted for a dual backend architecture with [Supabase](https://supabase.com/) paired with PostgreSQL as the authentication and  general backend + [Flask](https://flask.palletsprojects.com/en/stable/) as a machine learning backend.
+  
+![Production](__github__/architecture.png)
