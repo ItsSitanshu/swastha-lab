@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import lightCaretIcon from '@/app/assets/images/icons/light/caret_right.svg';
-import darkCaretIcon from '@/app/assets/images/icons/dark/caret_right.svg';
+import lightCaretIcon from "@/app/assets/images/icons/light/caret_right.svg";
+import darkCaretIcon from "@/app/assets/images/icons/dark/caret_right.svg";
 import LightDarkIcon from "@/app/components/LightDark";
 import Image from "next/image";
 
