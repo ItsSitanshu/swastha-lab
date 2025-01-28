@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Sidebar from "@/app/components/Sidebar";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Navbar from "@/app/components/Navbar";
-import Sidebar from "@/app/components/SideBar";
 
 const supabase = createClientComponentClient();
 
