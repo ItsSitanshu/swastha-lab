@@ -87,20 +87,20 @@ const AuthForm: FC = () => {
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
         const avatarUrl = `https://ui-avatars.com/api/?name=${firstName}%20${lastName}&background=${randomColor}&color=fff`;
 
-        const { error: insertError } = await supabase.from("patients").insert([
+        const { data: insrtData, error: insertError } = await supabase.from("patients").insert([
           {
-            name: `${firstName} ${lastName}`,
+            name: [firstName, lastName],
             email: email,
             id: authData.user.id,
             pfp: avatarUrl,
-            personal: {}, // Assuming you want an empty object for now
+            personal: {}, 
             reserv: [],
             doctors: [],
           },
         ]);
 
         if (insertError) {
-          console.error("Error inserting patient:", insertError);
+          console.log("Error inserting patient:", insertError);
           setError("Failed to create patient entry. Please try again.");
           return;
         }

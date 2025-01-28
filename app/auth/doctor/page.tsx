@@ -54,7 +54,7 @@ export default function DoctorAuth() {
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
         const avatarUrl = `https://ui-avatars.com/api/?name=${firstName}%20${lastName}&background=${randomColor}&color=fff`;
 
-        const { error: insertError } = await supabase.from("doctor").insert([
+        const { data: insertData, error: insertError } = await supabase.from("doctor").insert([
           {
             name: [firstName, lastName],
             id: data.user.id,
