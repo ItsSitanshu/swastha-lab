@@ -7,7 +7,7 @@ import Navbar from "@/app/components/Navbar";
 
 const supabase = createClientComponentClient();
 
-const SUB_PAGE_NAME = "Appointment";
+const SUB_PAGE_NAME = "Schedule";
 
 export default function DashboardPatientPage() {
   const [user, setUser] = useState<any>();
@@ -51,7 +51,6 @@ export default function DashboardPatientPage() {
           <div className="flex flex-col p-6 ml-64 h-screen bg-background font-jksans">
             <Navbar user={user} page={SUB_PAGE_NAME} />
             <div className="flex-1">
-              {/* MAIN BODY */}
               <div className="bg-gray-100">
                 <div className="max-w-7xl mx-auto p-4">
                   <div className="flex justify-between items-center mb-4">
