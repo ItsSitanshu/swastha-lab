@@ -47,8 +47,8 @@ const LandingPage = () => {
           Get started
         </a>
         <div className="mt-8 flex justify-center space-x-4">
-          <img alt="Child playing" className="w-24 h-24 rounded-full" src="" />
-          <img alt="Child learning" className="w-24 h-24 rounded-full" src="" />
+          <img alt="lorem " className="w-24 h-24 rounded-full" src="" />
+          <img alt="ipsum" className="w-24 h-24 rounded-full" src="" />
         </div>
       </main>
       <section className="bg-gray-50 py-16 px-4">

@@ -1,18 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import DashboardSidebar from "@/app/components/DashboardSidebar";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Navbar from "@/app/components/Navbar";
+import Sidebar from "@/app/components/SideBar";
 
 const supabase = createClientComponentClient();
 
 const SUB_PAGE_NAME = "Dashboard";
 
 type User = {
-  user_metadata: {
-    // Define user metadata structure here
-  };
+  user_metadata: {};
 };
 
 type Patient = {
@@ -100,7 +98,7 @@ const DashboardPatientPage = () => {
     <>
       {user ? (
         <>
-          <DashboardSidebar currentPage={SUB_PAGE_NAME} />
+          <Sidebar currentPage={SUB_PAGE_NAME} />
           <div className="flex flex-col p-6 ml-64 h-screen bg-background font-jksans">
             <Navbar user={user} page={SUB_PAGE_NAME} />
             <div className="flex-1">
