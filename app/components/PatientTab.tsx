@@ -19,12 +19,13 @@ const PatientTab: React.FC<PatientCardProps> = ({ user, currentSubPage, setCurre
 
   const linkStyles = (index: number) =>
     currentSubPage === index
-      ? 'border-b-2 border-foreground text-foreground' 
-      : 'border-b-2 border-transparent text-foreground/70 hover:text-foreground';
+      ? 'border-b-2 border-mod text-foreground' 
+      : 'hover:cursor-pointer hover:border-b-2 hover:border-dark border-b-2 border-transparent \
+        transition-all duration-500 text-foreground/70 hover:text-foreground';
 
   return (
-    <div className="p-4 md:p-6">
-      <div className="flex flex-col md:flex-row items-center mb-6">
+    <div className="pt-4 px-4">
+      <div className="flex flex-col md:flex-row items-center mb-3">
         <img
           alt="Patient Avatar"
           className="w-16 h-16 md:w-20 md:h-20 rounded-full mr-4"
@@ -36,14 +37,11 @@ const PatientTab: React.FC<PatientCardProps> = ({ user, currentSubPage, setCurre
           <h2 className="text-lg md:text-xl font-semibold text-foreground">{userName}</h2>
           <div className="text-foreground/50">hello</div>
         </div>
-        <button className="mt-4 md:mt-0 md:ml-auto bg-foreground text-background px-4 py-2 rounded-lg hover:bg-foreground/80">
-          Add Note
-        </button>
       </div>
       <div className="border-b border-foreground/10 mb-6">
         <div className="flex flex-wrap">
           <div className={`mr-6 pb-2 ${linkStyles(0)}`} onClick={() => setCurrentSubPage(0)}>
-            <a className="text-sm md:text-base">
+            <a className="text-sm md:text-base ">
               Patient Information
             </a>
           </div>

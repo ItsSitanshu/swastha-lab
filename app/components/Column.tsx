@@ -1,4 +1,6 @@
+import Image from "next/image";
 import React from "react";
+
 
 const Column = () => {
   const headers = [
@@ -19,7 +21,7 @@ const Column = () => {
       date: "24/05/2022",
       amount: "$2,311",
       payment: "PARTIALLY PAID",
-      img: "",
+      img: null,
     },
     {
       id: "#RSV007",
@@ -28,7 +30,7 @@ const Column = () => {
       date: "23/05/2022",
       amount: "$535",
       payment: "PARTIALLY PAID",
-      img: "",
+      img: null,
     },
   ];
 
@@ -47,9 +49,6 @@ const Column = () => {
             placeholder="1 May 2021 - 30 May 2021"
             type="text"
           />
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-lg">
-            Export
-          </button>
         </div>
       </div>
       <div className="overflow-x-auto">
@@ -73,10 +72,12 @@ const Column = () => {
                   </span>
                 </td>
                 <td className="py-2 px-4 border-b flex items-center">
-                  <img
+                  <Image
                     alt={row.patient}
                     className="w-8 h-8 rounded-full mr-2"
                     src={row.img}
+                    height={256}
+                    width={256}
                   />
                   {row.patient}
                 </td>

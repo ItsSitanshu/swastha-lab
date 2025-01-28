@@ -8,10 +8,8 @@ const AppointmentHistory: React.FC  = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      { /* First Section */}
       <Column/>
 
-      { /* Second Section */}
       <div className="bg-gray-50 p-6 rounded-lg shadow">
         <h3 className="text-lg font-semibold mb-4 text-black">Maxillary Left Lateral Incisor</h3>
         <div className="mb-4">

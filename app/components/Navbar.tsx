@@ -70,7 +70,7 @@ const Navbar: React.FC<{
             alt={`${userName} Avatar`}
             className="w-10 h-10 rounded-full mr-2"
             height="40"
-            src={pfpUrl}
+            src={pfpUrl ? pfpUrl : null}
             width="40"
           />
           <div className="flex flex-col">

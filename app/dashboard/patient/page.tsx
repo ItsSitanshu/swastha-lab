@@ -63,7 +63,7 @@ export default function DashboardPatientPage() {
           <div className="ml-64 flex flex-row bg-background font-jksans">
             <div className="flex-1 p-6">
               <Navbar user={user} page={SUB_PAGE_NAME} />
-              <div className="bg-white p-6 rounded-lg shadow">
+              <div className="bg-white p-3 rounded-lg shadow">
                 {view == 0 ? (
                   <div className="bg-white p-4 rounded-md shadow-md">
                     <table className="w-full text-left">
@@ -122,7 +122,6 @@ export default function DashboardPatientPage() {
                   </div>
                 ) : (
                   <div>
-                    <div className="flex mb-6"></div>
                     <PatientTab
                       user={user}
                       currentSubPage={subSection}
