@@ -5,10 +5,45 @@ import Sidebar from "@/app/components/Sidebar";
 import Navbar from "@/app/components/Navbar";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
+import { fetchDoctor } from "@/app/lib";
+
+
 const supabase = createClientComponentClient();
 const SUB_PAGE_NAME = "Message";
 
 function InboxSidebar() {
+  const [user, setUser] = useState<any>(null);
+  const [doctor, setDoctor] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        setUser(session?.user ?? null);
+      } catch (error: any) {
+        console.error("Error fetching session:", error.message);
+      }
+    };
+
+    fetchSession();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (_event, session) => setUser(session?.user ?? null)
+    );
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      fetchDoctor(user.id, supabase, setDoctor);
+    }
+  }, [user]);
+
   const conversations = [
     { name: "You", count: 10 },
     { name: "Mentions", count: 6 },

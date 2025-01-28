@@ -5,6 +5,8 @@ import Sidebar from "@/app/components/Sidebar";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Navbar from "@/app/components/Navbar";
 
+import { fetchDoctor } from "@/app/lib";
+
 const supabase = createClientComponentClient();
 
 const SUB_PAGE_NAME = "Dashboard";
@@ -69,7 +71,8 @@ const patientsData: Patient[] = [
 ];
 
 const DashboardPatientPage = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<any>(null);
+  const [doctor, setDoctor] = useState<any>(null);
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -94,9 +97,15 @@ const DashboardPatientPage = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (user) {
+      fetchDoctor(user.id, supabase, setDoctor);
+    }
+  }, [user]);
+
   return (
     <>
-      {user ? (
+      {user && doctor ? (
         <>
           <Sidebar currentPage={SUB_PAGE_NAME} />
           <div className="flex flex-col p-6 ml-64 h-screen bg-background font-jksans">

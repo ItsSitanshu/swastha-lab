@@ -5,6 +5,8 @@ import Sidebar from "@/app/components/Sidebar";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Navbar from "@/app/components/Navbar";
 
+import { fetchDoctor } from "@/app/lib";
+
 const supabase = createClientComponentClient();
 
 const SUB_PAGE_NAME: string = "Billing";

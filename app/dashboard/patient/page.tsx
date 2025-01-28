@@ -9,11 +9,17 @@ import MedicalRecord from "@/app/components/MedicalRecord";
 import PatientInformation from "@/app/components/PatitentInformation";
 import AppointmentHistory from "@/app/components/AppointmentHistory";
 
+import { fetchDoctor } from "@/app/lib";
+
+
+
 const supabase = createClientComponentClient();
 const SUB_PAGE_NAME = "Patient";
 
 export default function DashboardPatientPage() {
-  const [user, setUser] = useState<any>();
+  const [user, setUser] = useState<any>(null);
+  const [doctor, setDoctor] = useState<any>(null);
+
 
   const [subSection, setSubSection] = useState<number>(0);
   const [view, setView] = useState<number>(0);
@@ -45,13 +51,13 @@ export default function DashboardPatientPage() {
 
   useEffect(() => {
     if (user) {
-      console.log(user.user_metadata);
+      fetchDoctor(user.id, supabase, setDoctor);
     }
   }, [user]);
 
   return (
     <>
-      {user ? (
+      {user && doctor ? (
         <>
           <Sidebar currentPage={SUB_PAGE_NAME} />
           <div className="ml-64 flex flex-row bg-background font-jksans">

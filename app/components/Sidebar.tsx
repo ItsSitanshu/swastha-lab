@@ -100,8 +100,8 @@ const Sidebar: React.FC<SidebarOptions> = ({ currentPage }) => {
       </div>
 
       <a
-        href="/logout"
-        className="flex items-center text-red-500 p-3 rounded-lg hover:bg-foreground transition-all ease-in-out duration-500"
+        href="/auth/logout"
+        className="flex items-center text-red-500 p-3 rounded-lg hover:bg-foreground transition-all ease-in-out duration-500 hover:bg-foreground-80"
       >
         <Image
           src={logoutIcon}
