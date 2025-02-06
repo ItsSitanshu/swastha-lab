@@ -65,7 +65,7 @@ const AutoCarousel: React.FC = () => {
 
         .carousel-track {
           display: flex;
-          animation: slide 25s linear infinite; /* Adjusted duration for 5 images */
+          animation: slide 70s linear infinite; /* Adjusted duration for 5 images */
         }
 
         .image-container {
@@ -78,7 +78,7 @@ const AutoCarousel: React.FC = () => {
           }
           100% {
             transform: translateX(
-              -200%
+              -500%
             ); /* Move the entire width of two sets of images */
           }
         }
