@@ -12,7 +12,7 @@ const images = [
   { src: photo2, caption: "Image 2" },
   { src: photo3, caption: "Image 3" },
   { src: photo4, caption: "Image 4" },
-  { src: photo5, caption: "Image 5" }
+  { src: photo5, caption: "Image 5" },
 ];
 
 const AutoCarousel: React.FC = () => {
@@ -35,10 +35,13 @@ const AutoCarousel: React.FC = () => {
               </div>
             </div>
           ))}
-          
+
           {/* Duplicate the images for seamless loop */}
           {images.map((image, index) => (
-            <div key={index + images.length} className="image-container relative w-full mx-2">
+            <div
+              key={index + images.length}
+              className="image-container relative w-full mx-2"
+            >
               <Image
                 src={image.src}
                 width={2000}
@@ -62,7 +65,7 @@ const AutoCarousel: React.FC = () => {
 
         .carousel-track {
           display: flex;
-          animation: slide 10s linear infinite;
+          animation: slide 25s linear infinite; /* Adjusted duration for 5 images */
         }
 
         .image-container {
@@ -74,7 +77,9 @@ const AutoCarousel: React.FC = () => {
             transform: translateX(0);
           }
           100% {
-            transform: translateX(-100%); /* This is adjusted to move the entire width of the carousel once */
+            transform: translateX(
+              -200%
+            ); /* Move the entire width of two sets of images */
           }
         }
 

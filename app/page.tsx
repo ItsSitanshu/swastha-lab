@@ -176,7 +176,7 @@ const LandingPage = () => {
       >
         <div className="flex flex-row w-full justify-center items-center h-16 space-x-5 mb-5">
           <h2 className="font-nue mt-10 text-7xl font-bold text-center mb-8">
-            DELOPMENT <span className="text-mod">SNAPSHOTS</span>
+            DEVELOPMENT <span className="text-mod">SNAPSHOTS</span>
           </h2>
           <a href="https://github.com/ItsSitanshu/swastha-lab" target="_blank" className="p-0 h-full"><div
             className="hover:cursor-pointer hover:bg-background-100 hover:text-background-60 hover:scale-[1.05] transition-all duration-300 ease-in-out  

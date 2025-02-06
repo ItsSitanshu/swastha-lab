@@ -19,7 +19,7 @@ import demoQrIcon from "@/app/assets/images/demo.svg";
 const SloganRotator = () => {
   const slogans = [
     "Healthcare without compromise",
-    "Your health, our priority",
+    "Your health, our priority",  
     "Compassionate care for everyone",
   ];
 
