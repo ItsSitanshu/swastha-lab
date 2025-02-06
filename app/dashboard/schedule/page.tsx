@@ -54,7 +54,7 @@ export default function DashboardPatientPage() {
               <div className="bg-gray-100">
                 <div className="max-w-7xl mx-auto p-4">
                   <div className="flex justify-between items-center mb-4">
-                    <h1 className="text-2xl font-semibold">June 2024</h1>
+                    <h1 className="text-2xl font-semibold">Feb 2025</h1>
                     <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded">
                       Today
                     </button>

@@ -126,7 +126,7 @@ export default function DashboardBillingPage() {
                         },
                         {
                           id: "#RSV007",
-                          patient: "Mote Bhai",
+                          patient: "Patalo Bhai",
                           bill: "1/2",
                           date: "23/05/2022",
                           amount: "$535",
