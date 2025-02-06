@@ -38,12 +38,14 @@ const cardsData = [
     title: "Doctors",
     count: 126,
     description: "Available doctors",
+    link: "/hospital/doctors",
   },
   {
     icon: "fas fa-ambulance",
     title: "Ambulance",
     count: 32,
     description: "Available ambulance",
+    link: "/hospital/ambulance",
   },
 ];
 
