@@ -20,7 +20,7 @@ const AppointmentHistory: React.FC  = () => {
           <div className="bg-white p-4 rounded-lg shadow">
             <div className="flex justify-between items-center mb-2">
               <div className="text-gray-600">Condition</div>
-              <div className="text-gray-600">Caries</div>
+              <div className="text-gray-600">Caries</div> 
             </div>
             <div className="flex justify-between items-center mb-2">
               <div className="text-gray-600">Treatment</div>

@@ -211,7 +211,7 @@ export default function DashboardPatientPage() {
                         className="hidden w-full h-full"
                         onChange={handleFileChange} 
                       />
-                      <Image src={pfpUrl} 
+                      <Image src={pfpUrl || null} 
                         width={2000}
                         height={2000}
                         alt='?' 

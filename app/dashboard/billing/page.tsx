@@ -145,7 +145,7 @@ export default function DashboardBillingPage() {
                             <img
                               alt={row.patient}
                               className="w-8 h-8 rounded-full mr-2"
-                              src={row.img}
+                              src={row.img || null}
                             />
                             {row.patient}
                           </td>
