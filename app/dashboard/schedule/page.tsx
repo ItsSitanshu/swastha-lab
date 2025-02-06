@@ -37,12 +37,6 @@ export default function DashboardPatientPage() {
     };
   }, []);
 
-  useEffect(() => {
-    if (user) {
-      console.log(user.user_metadata);
-    }
-  }, [user]);
-
   return (
     <>
       {user ? (

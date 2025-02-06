@@ -5,29 +5,60 @@ import { motion } from "framer-motion";
 
 import githubIcon from "@/app/assets/images/logos/github.svg";
 import stethscopeIcon from "@/app/assets/images/icons/stethscope.svg";
-import calendarIcon from "@/app/assets/images/icons/calendar.svg";
 import newIcon from "@/app/assets/images/icons/new.svg";
 
-import photo1 from "@/app/assets/photos/1.png";
-import photo2 from "@/app/assets/photos/2.png";
-import photo3 from "@/app/assets/photos/3.png";
-import photo4 from "@/app/assets/photos/4.png";
-import photo5 from "@/app/assets/photos/5.png";
-
-
-import happyIcon from "@/app/assets/images/icons/landing/happy.svg";
-import chatIcon from "@/app/assets/images/icons/landing/chat.svg";
-import locationIcon from "@/app/assets/images/icons/landing/location.svg";
-import callIcon from "@/app/assets/images/icons/landing/call.svg";
+import physioIcon from "@/app/assets/images/icons/landing/physio.svg";
+import watchIcon from "@/app/assets/images/icons/landing/watch.svg";
+import centerIcon from "@/app/assets/images/icons/landing/center.svg";
+import AiIcon from "@/app/assets/images/icons/landing/ai.svg";
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import AutoCarousel from "./components/AutoCarousel";
 
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+
+const supabase = createClientComponentClient();
+
+
+
 const LandingPage = () => {
   const [visibleSection, setVisibleSection] = useState("home");
 
   const router = useRouter();
+
+  const [user, setUser] = useState<any>();
+  
+  useEffect(() => {
+    const fetchSession = async () => {
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        setUser(session?.user ?? null);
+      } catch (error: any) {
+        console.error("Error fetching session:", error.message);
+      }
+    };
+
+    fetchSession();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setUser(session?.user ?? null);
+      }
+    );
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      console.log(user.user_metadata);
+    }
+  }, [user]);
 
   useEffect(() => {
     document.documentElement.style.scrollBehavior = "smooth";
@@ -137,29 +168,90 @@ const LandingPage = () => {
         <h2 className="font-nue text-7xl font-bold text-center mb-8">
           Key <span className="text-mod font-pacifico">Features</span>
         </h2>
-        <div className="flex flex-row justify-between space-x-8 w-3/4">
-          <div className="w-1/3 bg-[#f4d4d4] p-6 rounded-lg shadow-md">
-            <h3 className="text-2xl font-nue font-bold mb-2">AI-Driven Insights</h3>
-            <p className="text-foreground-100">
-              Doctors can make better diagnoses with AI-powered monitoring for
-              patients
-            </p>
-          </div>
-          <div className="w-1/3  bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-2xl font-nue font-bold mb-2">Open-Source Platform</h3>
-            <p className="text-foreground-100">
-              Swastha Lab is fully open-source, promoting transparency and
-              collaborative development.
-            </p>
-          </div>
-          <div className="w-1/3 bg-[#e0e0e0] p-6 rounded-lg shadow-md">
-            <h3 className="text-2xl font-nue font-bold mb-2">Seamless Experience</h3>
-            <p className="text-foreground-100">
-              Connect patients and doctors effortlessly, enhancing the quality
-              of care.
-            </p>
-          </div>
+        <div className="relative flex flex-col justify-center items-center overflow-hiddenpy-6 h-full sm:py-12">
+        <div className="flex flex-row justify-between space-x-8 w-3/4 h-full">
+          {[
+            {
+              color: "dark",
+              hoverColor: "dark/80",
+              title: "Physiotherapy and Telemedicine Services",
+              description:
+                "Remote physiotherapy computer vision services to make sure you do it right",
+              link: "#",
+              linkText: "Try a demo",
+              icon: physioIcon,
+            },
+            {
+              color: "brown",
+              hoverColor: "brown/80",
+              title: "Seamless Experience",
+              description:
+                "Connect your favorite devices, or use our use Swastha Lab's own fit bit",
+              link: "#",
+              linkText: "Learn More",
+              icon: watchIcon,
+            },
+            {
+              color: "dark",
+              hoverColor: "dark/80",
+              title: "Centralized Medical Records",
+              description:
+                "All your records, one place, one time and easily accessible for you",
+              link: "#",
+              linkText: "Fill a survey",
+              icon: centerIcon,
+            },
+            {
+              color: "brown",
+              hoverColor: "brown/80",
+              title: "Advanced AI Integration",
+              description:
+                "AI-powered insights for smarter healthcare decisions",
+              link: "#",
+              linkText: "Discover AI Features",
+              icon: AiIcon,
+            },
+          ].map((item, index) => (
+            <div
+              key={index}
+              className="flex flex-row group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-10 w-1/4 h-full shadow-xl ring-1 
+              ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto 
+              sm:max-w-sm sm:rounded-lg sm:px-10 "
+            >
+              <span
+                className={`absolute top-10 z-0 h-20 w-20 rounded-full bg-${item.color} transition-all duration-300 group-hover:scale-[10]`}
+              ></span>
+              <div className="relative z-10 mx-auto max-w-md">
+                <span
+                  className={`grid h-20 w-20 place-items-center rounded-full bg-${item.color} transition-all duration-300 group-hover:bg-${item.hoverColor}`}
+                >
+                  <Image
+                    width={128}
+                    height={128}
+                    alt={item.linkText}
+                    src={item.icon}
+                    className="h-14 w-14 text-white transition-all"
+                  />
+                </span>
+                <div className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
+                  <p>{item.description}</p>
+                </div>
+              </div>
+              <div className="h-10 absolute bottom-0 text-base font-semibold leading-7 mt">
+                  <p>
+                    <a
+                      href={item.link}
+                      className={`text-${item.color} transition-all duration-300 group-hover:text-white`}
+                    >
+                      {item.linkText} &rarr;
+                    </a>
+                  </p>
+                </div>
+            </div>
+          ))}
         </div>
+      </div>
+
       </motion.section>
 
       {/* About Us Section */}
