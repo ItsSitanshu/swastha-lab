@@ -1,22 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
-
-const supabase = createClientComponentClient();
-
-const colors = [
-  "34A853", // Green
-  "4285F4", // Blue
-  "FBBC05", // Yellow
-  "DB4437", // Red
-  "FF9800", // Orange
-  "8E24AA", // Purple
-  "00ACC1", // Cyan
-  "9E9D24", // Lime
-];
+import axios from "axios";
 
 const hospitalList = [
   "KIST Hospital",
@@ -31,61 +17,38 @@ export default function DoctorAuth() {
   const [lastName, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [primaryHospital, setPrimaryHospital] = useState<string>(
-    hospitalList[0]
-  );
-
+  const [primaryHospital, setPrimaryHospital] = useState<string>(hospitalList[0]);
+  const [nmcNo, setNmcNo] = useState<string>("");
+  const [degree, setDegree] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
   const router = useRouter();
 
+  // Handle form submission for registration
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setSuccess(null);
 
+    // Construct the NMC search URL
+    const searchUrl = `https://www.nmc.org.np/searchPractitioner?name=${encodeURIComponent(
+      firstName + " " + lastName
+    )}&nmc_no=${encodeURIComponent(nmcNo)}${degree ? `&degree=${encodeURIComponent(degree)}` : ""}`;
+
+    console.log("Request URL: ", searchUrl); // Print the request URL
+
+    let response = null;
     try {
-      const username = `${firstName} ${lastName}`;
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: { username },
-        },
-      });
-
-      if (error) {
-        setError(error.message);
-      } else if (data.user) {
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        const avatarUrl = `https://ui-avatars.com/api/?name=${firstName}%20${lastName}&background=${randomColor}&color=fff`;
-
-        const { data: insertData, error: insertError } = await supabase
-          .from("doctor")
-          .insert([
-            {
-              name: [firstName, lastName],
-              id: data.user.id,
-              pfp: avatarUrl,
-              special: [],
-              reserv: [],
-              personal: { primaryHospital },
-            },
-          ]);
-
-        if (insertError) {
-          setError("Failed to create doctor entry. Please try again.");
-        } else {
-          setSuccess(
-            "Sign up successful! Please check your email for confirmation."
-          );
-        }
-      }
+      response = await axios.get(searchUrl);
+      setSuccess("Sign up successful! Please check your email for confirmation.");
     } catch (err: any) {
       console.error(err);
       setError("An unexpected error occurred. Please try again.");
+    } finally {
+      console.log(response);
     }
+
   };
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -94,19 +57,8 @@ export default function DoctorAuth() {
     setSuccess(null);
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (error) {
-        setError(
-          error.message.charAt(0).toUpperCase() + error.message.slice(1)
-        );
-      } else if (data.user) {
-        setSuccess("Sign in successful!");
-        router.push("/");
-      }
+      setSuccess("Sign in successful!");
+      router.push("/");
     } catch (err: any) {
       console.error(err);
       setError("An unexpected error occurred. Please try again.");
@@ -121,14 +73,12 @@ export default function DoctorAuth() {
           className="flex flex-col"
         >
           <h2 className="text-2xl font-bold mb-4 text-center">
-            {isLogin
-              ? "Login to Your Account"
-              : "Register as an Official Doctor"}
+            {isLogin ? "Login to Your Account" : "Register as an Official Doctor"}
           </h2>
 
           {!isLogin && (
             <>
-              <div className="mb-4">
+              {/* <div className="mb-4">
                 <label className="block text-sm font-medium mb-1">
                   First Name
                 </label>
@@ -152,7 +102,7 @@ export default function DoctorAuth() {
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                 />
-              </div>
+              </div> */}
 
               <div className="mb-4">
                 <label className="block text-sm font-medium mb-1">
@@ -169,6 +119,19 @@ export default function DoctorAuth() {
                     </option>
                   ))}
                 </select>
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-sm font-medium mb-1">
+                  NMC No.
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter NMC No."
+                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-mod"
+                  value={nmcNo}
+                  onChange={(e) => setNmcNo(e.target.value)}
+                />
               </div>
             </>
           )}
