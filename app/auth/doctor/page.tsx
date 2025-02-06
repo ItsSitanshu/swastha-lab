@@ -1,14 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import { nmc } from "@/app/lib";
 
-const hospitalList = [
-  "KIST Hospital",
-  "Norvic Hospital",
-  "Bir Hospital",
-  "Grande International Hospital",
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+
+const supabase = createClientComponentClient();
+
+
+const colors = [
+  "34A853", // Green
+  "4285F4", // Blue
+  "FBBC05", // Yellow
+  "DB4437", // Red
+  "FF9800", // Orange
+  "8E24AA", // Purple
+  "00ACC1", // Cyan
+  "9E9D24", // Lime
 ];
 
 export default function DoctorAuth() {
@@ -17,38 +26,114 @@ export default function DoctorAuth() {
   const [lastName, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [primaryHospital, setPrimaryHospital] = useState<string>(hospitalList[0]);
-  const [nmcNo, setNmcNo] = useState<string>("");
+  const [primaryHospital, setPrimaryHospital] = useState<string>("");
+  const [nmcNo, setNmcNo] = useState<number | "">(""); // Ensure controlled input
+  const [nmcData, setNmcData] = useState<any | null>(null);
   const [degree, setDegree] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
   const router = useRouter();
 
-  // Handle form submission for registration
+  useEffect(() => {
+    const verifyNMC = async () => {
+      if (!nmcNo) {
+        setNmcData(null); // Prevents uncontrolled input warnings
+        return;
+      }
+
+      try {
+        const response = await nmc(Number(nmcNo));
+        if (response.code === 200) {
+          setNmcData(response.response);
+          setError(null);
+        } else {
+          setNmcData(null);
+          setError("Invalid NMC number or not found.");
+        }
+      } catch (err) {
+        setNmcData(null);
+        setError("Failed to fetch NMC data.");
+      }
+    };
+
+    verifyNMC();
+  }, [nmcNo]);
+
+  useEffect(() => {
+    if (!nmcData) {
+      setFirstName("");
+      setLastName("");
+      return;
+    }
+
+    let fullName = nmcData["Full Name"] || "";
+    fullName = fullName.replace(/(Dr\.|PhD|MD|MBBS|MS|Prof\.|Sir)/gi, "").trim();
+
+    const nameParts = fullName.split(" ");
+    setFirstName(nameParts[0] || "");
+    setLastName(nameParts.length > 1 ? nameParts.slice(1).join(" ") : "");
+
+    setPrimaryHospital(nmcData["Working Place"] || "");
+  }, [nmcData]);
+
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setSuccess(null);
 
-    // Construct the NMC search URL
-    const searchUrl = `https://www.nmc.org.np/searchPractitioner?name=${encodeURIComponent(
-      firstName + " " + lastName
-    )}&nmc_no=${encodeURIComponent(nmcNo)}${degree ? `&degree=${encodeURIComponent(degree)}` : ""}`;
+    if (!firstName || !lastName || !email || !password || !nmcNo || !primaryHospital) {
+      setError("All fields are required.");
+      return;
+    }
 
-    console.log("Request URL: ", searchUrl); // Print the request URL
-
-    let response = null;
     try {
-      response = await axios.get(searchUrl);
-      setSuccess("Sign up successful! Please check your email for confirmation.");
+      const username = `${firstName} ${lastName}`;
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { username },
+        },
+      });
+
+      if (error) {
+        setError(error.message);
+      } else if (data.user) {
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        const avatarUrl = `https://ui-avatars.com/api/?name=${firstName}%20${lastName}&background=${randomColor}&color=fff`;
+
+        const { data: insertData, error: insertError } = await supabase
+          .from("doctor")
+          .insert([
+            {
+              name: [firstName, lastName],
+              id: data.user.id,
+              nmc: nmcNo,
+              pfp: avatarUrl,
+              email: email,
+              special: [],
+              reserv: [],
+              personal: { 
+                  workplace: primaryHospital,
+                  gender: nmcData["Gender"] || "RNS",
+                  degree: nmcData["Degree"] || "Unknown",
+               },
+            },
+          ]);
+
+        if (insertError) {
+          setError("Failed to create doctor entry. Please try again.");
+        } else {
+          setSuccess(
+            "Sign up successful! Please check your email for confirmation."
+          );
+        }
+      }
     } catch (err: any) {
       console.error(err);
       setError("An unexpected error occurred. Please try again.");
-    } finally {
-      console.log(response);
     }
-
   };
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -59,7 +144,7 @@ export default function DoctorAuth() {
     try {
       setSuccess("Sign in successful!");
       router.push("/");
-    } catch (err: any) {
+    } catch (err) {
       console.error(err);
       setError("An unexpected error occurred. Please try again.");
     }
@@ -78,61 +163,53 @@ export default function DoctorAuth() {
 
           {!isLogin && (
             <>
-              {/* <div className="mb-4">
-                <label className="block text-sm font-medium mb-1">
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g. Hari"
-                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-mod"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-              </div>
-
               <div className="mb-4">
-                <label className="block text-sm font-medium mb-1">
-                  Last Name
-                </label>
+                <label className="block text-sm font-medium mb-1">NMC No.</label>
                 <input
-                  type="text"
-                  placeholder="e.g. Acharya"
-                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-mod"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-              </div> */}
-
-              <div className="mb-4">
-                <label className="block text-sm font-medium mb-1">
-                  Primary Hospital
-                </label>
-                <select
-                  className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-mod"
-                  value={primaryHospital}
-                  onChange={(e) => setPrimaryHospital(e.target.value)}
-                >
-                  {hospitalList.map((hospital, index) => (
-                    <option key={index} value={hospital}>
-                      {hospital}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="mb-4">
-                <label className="block text-sm font-medium mb-1">
-                  NMC No.
-                </label>
-                <input
-                  type="text"
+                  type="number"
                   placeholder="Enter NMC No."
                   className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-mod"
                   value={nmcNo}
-                  onChange={(e) => setNmcNo(e.target.value)}
+                  onChange={(e) => setNmcNo(e.target.value ? Number(e.target.value) : "")}
                 />
               </div>
+
+              {nmcData && (
+                <>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium mb-1">First Name</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Hari"
+                      className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-mod"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium mb-1">Last Name</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Acharya"
+                      className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-mod"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium mb-1">Primary Workplace</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Xyz Hospital"
+                      className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-mod"
+                      value={primaryHospital}
+                      onChange={(e) => setPrimaryHospital(e.target.value)}
+                    />
+                  </div>
+                </>
+              )}
             </>
           )}
 

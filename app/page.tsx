@@ -86,8 +86,8 @@ const LandingPage = () => {
               className="relative text-black hover:text-mod cursor-pointer transition-all ease-in-out duration-300
               before:transition-[width] before:ease-in-out before:duration-700 before:absolute before:bg-mod
               before:origin-center before:h-[5px] before:w-0 hover:before:w-[50%] before:bottom-0 before:left-[50%]
-               after:transition-[width] after:ease-in-out after:duration-700 after:absolute after:bg-mod 
-               after:origin-center after:h-[5px] after:w-0 hover:after:w-[50%] after:bottom-0 after:right-[50%] mr-4">
+              after:transition-[width] after:ease-in-out after:duration-700 after:absolute after:bg-mod 
+              after:origin-center after:h-[5px] after:w-0 hover:after:w-[50%] after:bottom-0 after:right-[50%] mr-4">
             <span> लाभ</span>
             </div><span className="text-foreground-100"> with <span className="
             bg-gradient-to-r from-brown to-mod bg-clip-text text-transparent">Swastha Lab</span></span>
