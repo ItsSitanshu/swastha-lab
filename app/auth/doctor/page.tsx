@@ -138,13 +138,23 @@ export default function DoctorAuth() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+
     setError(null);
     setSuccess(null);
 
     try {
-      setSuccess("Sign in successful!");
-      router.push("/");
-    } catch (err) {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+      });
+
+      if (error) {
+        setError(error.message.charAt(0).toUpperCase() + error.message.slice(1));
+      } else if (data.user) {
+        setSuccess("Sign in successful!");
+        router.push("/");
+      }
+    } catch (err: any) {
       console.error(err);
       setError("An unexpected error occurred. Please try again.");
     }

@@ -17,17 +17,18 @@ import { useRouter } from "next/navigation";
 import AutoCarousel from "./components/AutoCarousel";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { fetchDoctor, fetchPatient } from "./lib";
 
 const supabase = createClientComponentClient();
-
-
 
 const LandingPage = () => {
   const [visibleSection, setVisibleSection] = useState("home");
 
   const router = useRouter();
 
-  const [user, setUser] = useState<any>();
+  const [user, setUser] = useState<any>(null);
+  const [doctor, setDoctor] = useState<any>(null);
+  const [patient, setPatient] = useState<any>(null);
   
   useEffect(() => {
     const fetchSession = async () => {
@@ -55,11 +56,14 @@ const LandingPage = () => {
   }, []);
 
   useEffect(() => {
-    if (user) {
-      console.log(user.user_metadata);
-    }
+    if (!user) return;
+
+    if (fetchDoctor(user.id, supabase, setDoctor)) return;
+    
+    fetchPatient(user.id, supabase, setPatient);
   }, [user]);
 
+  
   useEffect(() => {
     document.documentElement.style.scrollBehavior = "smooth";
 
@@ -123,37 +127,84 @@ const LandingPage = () => {
             </div><span className="text-foreground-100"> with <span className="
             bg-gradient-to-r from-brown to-mod bg-clip-text text-transparent">Swastha Lab</span></span>
         </div>
-        <div className="flex flex-row justify-center items-center h-14 w-full space-x-5">
-          <a href="/auth/register" target="_blank" className="w-2/12 h-full"><div
-            className="hover:cursor-pointer hover:bg-foreground-100 hover:text-background-100 hover:scale-[1.02] transition-all duration-300 ease-in-out  
-              flex flex-row justify-center items-center aspect-square px-1 w-full h-full border-[0.5px] border-foreground-20 bg-background-100 rounded-full"
-          >
-              <Image
-                aria-hidden
-                src={newIcon}
-                alt="Doctor "
-                width={26}
-                height={26}
-                className="mr-1.5"
-              />
-              <h1 className="font-jksans text-[1rem]">Resgister as a Patient</h1>
-          </div></a>
-          <a href="/auth/doctor" target="_blank" className="w-2/12 h-full"><div
-            className="hover:cursor-pointer hover:bg-foreground-100 hover:text-background-100 hover:scale-[1.02] transition-all duration-300 ease-in-out  
-              flex flex-row justify-center items-center aspect-square px-1 w-full h-full border-[0.5px] border-foreground-20 bg-background-100 rounded-full"
-          >
-              <Image
-                aria-hidden
-                src={stethscopeIcon}
-                alt="Doctor "
-                width={26}
-                height={26}
-                className="mr-1.5"
-              />
-              <h1 className="font-jksans text-[1rem]">Log in as official NMC Doctor</h1>
-          </div></a>
-        </div>
-      </motion.section>
+        { patient ? (
+          <div className="flex flex-row justify-center items-center h-14 w-full space-x-5">
+            <a href="/auth/register" target="_blank" className="w-2/12 h-full">
+              <div
+                className="hover:cursor-pointer hover:bg-foreground-100 hover:text-background-100 hover:scale-[1.02] transition-all duration-300 ease-in-out  
+                  flex flex-row justify-center items-center aspect-square px-1 w-full h-full border-[0.5px] border-foreground-20 bg-background-100 rounded-full"
+              >
+                <Image
+                  aria-hidden
+                  src={newIcon}
+                  alt="Patient Information"
+                  width={26}
+                  height={26}
+                  className="mr-1.5"
+                />
+                <h1 className="font-jksans text-[1rem]">Register as a Patient</h1>
+              </div>
+            </a>
+          </div>
+        ) : doctor ? (
+          <div className="flex flex-row justify-center items-center h-14 w-full space-x-5">
+            <a href="/dashboard" target="_blank" className="w-2/12 h-full">
+              <div
+                className="hover:cursor-pointer hover:bg-foreground-100 hover:text-background-100 hover:scale-[1.02] transition-all duration-300 ease-in-out  
+                  flex flex-row justify-center items-center aspect-square px-1 w-full h-full border-[0.5px] border-foreground-20 bg-background-100 rounded-full"
+              >
+                <Image
+                  aria-hidden
+                  src={stethscopeIcon}
+                  alt="Doctor"
+                  width={26}
+                  height={26}
+                  className="mr-1.5"
+                />
+                <h1 className="font-jksans text-[1rem]">Go to the Doctor's Dashboard</h1>
+              </div>
+            </a>
+          </div>
+        ) : (
+          <>
+          <div className="flex flex-row justify-center items-center h-14 w-full space-x-5">
+            <a href="/auth/register" target="_blank" className="w-2/12 h-full">
+              <div
+                className="hover:cursor-pointer hover:bg-foreground-100 hover:text-background-100 hover:scale-[1.02] transition-all duration-300 ease-in-out  
+                  flex flex-row justify-center items-center aspect-square px-1 w-full h-full border-[0.5px] border-foreground-20 bg-background-100 rounded-full"
+              >
+                <Image
+                  aria-hidden
+                  src={newIcon}
+                  alt="Patient Information"
+                  width={26}
+                  height={26}
+                  className="mr-1.5"
+                />
+                <h1 className="font-jksans text-[1rem]">Register as a Patient</h1>
+              </div>
+            </a>
+              <a href="/auth/doctor" target="_blank" className="w-2/12 h-full">
+                <div
+                  className="hover:cursor-pointer hover:bg-foreground-100 hover:text-background-100 hover:scale-[1.02] transition-all duration-300 ease-in-out  
+                    flex flex-row justify-center items-center aspect-square px-1 w-full h-full border-[0.5px] border-foreground-20 bg-background-100 rounded-full"
+                >
+                  <Image
+                    aria-hidden
+                    src={stethscopeIcon}
+                    alt="Doctor"
+                    width={26}
+                    height={26}
+                    className="mr-1.5"
+                  />
+                  <h1 className="font-jksans text-[1rem]">Log in as official NMC Doctor</h1>
+                </div>
+              </a>
+            </div>
+          </>
+        )}
+
+       </motion.section>
 
       <motion.section
         id="features"
@@ -237,7 +288,7 @@ const LandingPage = () => {
                   <p>{item.description}</p>
                 </div>
               </div>
-              <div className="h-10 absolute bottom-0 text-base font-semibold leading-7 mt">
+              {/* <div className="h-10 absolute bottom-0 text-base font-semibold leading-7 mt">
                   <p>
                     <a
                       href={item.link}
@@ -246,7 +297,7 @@ const LandingPage = () => {
                       {item.linkText} &rarr;
                     </a>
                   </p>
-                </div>
+                </div> */}
             </div>
           ))}
         </div>
