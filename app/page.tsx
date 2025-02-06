@@ -88,7 +88,7 @@ const LandingPage = () => {
           <div className="space-x-4">
             <a
               className="px-4 py-2 bg-mod text-white rounded-full hover:bg-dark transition-all duration-500"
-              href="#"
+              href="/auth/login"
             >
               Log in
             </a>
@@ -116,6 +116,7 @@ const LandingPage = () => {
           connecting patients and doctors.
         </p>
         <a
+          href="/dashboard"
           className="px-6 py-3 bg-mod text-white rounded-full hover:bg-dark transition-all duration-500"
           onClick={() => handleSmoothScroll("features")}
           role="button"

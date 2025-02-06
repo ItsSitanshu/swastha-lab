@@ -16,8 +16,6 @@ import syringeIcon from "@/app/assets/images/icons/syringe.svg";
 
 import demoQrIcon from "@/app/assets/images/demo.svg";
 
-
-
 const SloganRotator = () => {
   const slogans = [
     "Healthcare without compromise",

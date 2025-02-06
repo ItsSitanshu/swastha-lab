@@ -7,7 +7,6 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 import { fetchDoctor } from "@/app/lib";
 
-
 const supabase = createClientComponentClient();
 const SUB_PAGE_NAME = "Message";
 
@@ -93,7 +92,6 @@ function InboxSidebar() {
         <ul className="mt-4 space-y-2">
           {teamMembers.map((member) => (
             <li key={member} className="flex items-center space-x-2">
-              <img className="rounded-full w-8 h-8" src="" alt="" />
               <span>{member}</span>
             </li>
           ))}
